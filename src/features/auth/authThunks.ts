@@ -5,7 +5,7 @@ import { RootState } from '@/app/store';
 
 export const login = createAsyncThunk(
     'auth/login',
-    async(credentials: { username: string; password: string }, { dispatch, rejectWithValue}) => {
+    async (credentials: { username: string; password: string }, { dispatch, rejectWithValue }) => {
         try {
             const response = await axios.post('/api/auth/login', credentials);
 
@@ -25,6 +25,6 @@ export const login = createAsyncThunk(
     }
 );
 
-export const logoutUser = createAsyncThunk('auth/logoutUser', async(_, { dispatch }) => {
+export const logoutUser = createAsyncThunk('auth/logoutUser', async (_, { dispatch }) => {
     dispatch(logout());
 });
