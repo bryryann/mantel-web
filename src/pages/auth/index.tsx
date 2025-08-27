@@ -2,16 +2,17 @@ import AuthLayout from '@/layouts/AuthLayout';
 import LoginForm from '@/components/auth/LoginForm';
 import RegisterForm from '@/components/auth/RegisterForm';
 import { useState } from 'react';
+import './AuthPage.css';
 
 const AuthPage = () => {
     const [formType, setFormType] = useState<'login' | 'register'>('login');
 
     return (
         <AuthLayout title={formType === 'login' ? 'Login' : 'Register'}>
-            <div style={{ marginBottom: '1rem' }}>
+            <div className='auth-div-btns'>
                 <button
                     onClick={() => setFormType('login')}
-                    style={{ marginRight: '1rem', fontWeight: formType === 'login' ? 'bold' : 'normal' }}
+                    style={{ fontWeight: formType === 'login' ? 'bold' : 'normal' }}
                 >
                     Login
                 </button>

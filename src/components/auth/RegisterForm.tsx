@@ -1,3 +1,5 @@
+import './RegisterForm.css';
+
 const RegisterForm = () => {
     return <p>RegisterForm</p>;
 };
