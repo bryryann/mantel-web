@@ -1,7 +1,8 @@
+import { useState } from 'react';
 import AuthLayout from '@/layouts/AuthLayout';
 import LoginForm from '@/components/auth/LoginForm';
 import RegisterForm from '@/components/auth/RegisterForm';
-import { useState } from 'react';
+import Button from '@/components/Button';
 import './AuthPage.css';
 
 const AuthPage = () => {
@@ -10,18 +11,19 @@ const AuthPage = () => {
     return (
         <AuthLayout title={formType === 'login' ? 'Login' : 'Register'}>
             <div className='auth-div-btns'>
-                <button
+                <Button
                     onClick={() => setFormType('login')}
                     style={{ fontWeight: formType === 'login' ? 'bold' : 'normal' }}
                 >
                     Login
-                </button>
-                <button
+
+                </Button>
+                <Button
                     onClick={() => setFormType('register')}
                     style={{ fontWeight: formType === 'register' ? 'bold' : 'normal' }}
                 >
                     Register
-                </button>
+                </Button>
             </div>
 
             {formType === 'login' ? <LoginForm /> : <RegisterForm />}
