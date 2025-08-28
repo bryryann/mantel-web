@@ -7,21 +7,24 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   error?: string;
 }
 
-const Input: React.FC<InputProps> = ({ label, name, error, ...props }) => {
-  return (
-    <div className='input-component'>
-      <label htmlFor={name}>
-        {label}
-      </label>
-      <input
-        id={name}
-        name={name}
-        style={{borderColor: error ? 'red' : '#ccc'}}
-        {...props}
-      />
-      {error && <p className='input-error'>{ error }</p>}
-    </div>
-  );
-};
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ label, name, error, ...props }, ref) => {
+    return (
+      <div className='input-component'>
+        <label htmlFor={name}>
+          {label}
+        </label>
+        <input
+          ref={ref}
+          id={name}
+          name={name}
+          style={{ borderColor: error ? 'red' : '#ccc' }}
+          {...props}
+        />
+        {error && <p className='input-error'>{error}</p>}
+      </div>
+    );
+  }
+);
 
 export default Input;
