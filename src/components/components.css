@@ -1,3 +1,4 @@
+/* Button styles */
 btn-component {
     padding: 0.5rem 1rem;
     border-radius: 4px;
@@ -37,4 +38,22 @@ btn-component {
 
 .btn-danger:hover:not(:disabled) {
     background-color: #b91c1c;
+}
+
+/* Input styles */
+.input-component {
+    margin-bottom: 1rem;
+}
+
+.input-component label {
+    display: block;
+    margin-bottom: .25rem;
+}
+
+.input-component input {
+    padding: .5rem;
+    border-radius: 4px;
+    border-width: 1px;
+    border-style: solid;
+    width: 100%;
 }
