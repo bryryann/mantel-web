@@ -33,7 +33,7 @@ const LoginForm: React.FC = () => {
                 {...register('password', { required: 'Password is required' })}
                 error={errors.password?.message}
             />
-            <Button type='submit'>Submit</Button>
+            <Button type='submit'>Log In</Button>
         </form>
     );
 };
