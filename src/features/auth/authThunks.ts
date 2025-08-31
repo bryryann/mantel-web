@@ -34,7 +34,7 @@ export const register = createAsyncThunk(
 
             const loginData = await loginUser({
                 username: registeredUser.username,
-                password: registeredUser.password,
+                password: userData.password,
             });
 
             const sanitizedUser: User = {
