@@ -24,12 +24,14 @@ const RegisterForm: React.FC = () => {
         dispatch(registerUserThunk(data))
             .unwrap()
             .then(() => {
+                // TODO: Improve register success behaviour
                 console.log('user registered and logged in');
             })
             .catch(err => {
+                // TODO: Improve register failure behaviour
                 console.error('registration error:', err);
             });
-    }
+    };
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>

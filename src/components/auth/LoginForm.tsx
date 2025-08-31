@@ -1,6 +1,8 @@
 import { useForm } from 'react-hook-form';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
+import { useAppDispatch } from '@/hooks/hooks';
+import { login as loginUserThunk } from '@/features/auth/authThunks';
 import './LoginForm.css';
 
 interface FormData {
@@ -9,6 +11,8 @@ interface FormData {
 }
 
 const LoginForm: React.FC = () => {
+    const dispatch = useAppDispatch();
+
     const {
         register,
         handleSubmit,
@@ -16,9 +20,17 @@ const LoginForm: React.FC = () => {
     } = useForm<FormData>();
 
     const onSubmit = (data: FormData) => {
-        // TODO: Submit to API.
-        console.log('submitted with data:', data);
-    }
+        dispatch(loginUserThunk(data))
+            .unwrap()
+            .then(() => {
+                // TODO: Improve login success behaviour
+                console.log('user logged in succesfully');
+            })
+            .catch(err => {
+                // TODO: Improve login failure behaviour
+                console.error('login error:', err);
+            });
+    };
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
