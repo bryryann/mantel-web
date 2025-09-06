@@ -1,8 +1,9 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route /*, Navigate */ } from 'react-router-dom';
 import PublicRoute from '@/components/routes/PublicRoute';
 import PrivateRoute from '@/components/routes/PrivateRoute';
 import AuthPage from '@/pages/auth';
 import DashboardPage from '@/pages/dashboard';
+import { NotFound } from '@/pages/errors';
 
 const App = () => {
   return (
@@ -31,7 +32,7 @@ const App = () => {
         {/* Route(s) accessible both by authenticated and unauthenticated users. */}
 
         {/* Catch-all route */}
-        <Route path='*' element={<Navigate to='/auth' replace />} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </Router>
   );
