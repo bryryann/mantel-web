@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import AuthLayout from '@/layouts/AuthLayout';
+import { AuthLayout } from '@/layouts';
 import LoginForm from '@/components/auth/LoginForm';
 import RegisterForm from '@/components/auth/RegisterForm';
 import { Button } from '@/components/ui';
