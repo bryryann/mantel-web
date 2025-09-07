@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route /*, Navigate */ } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import PublicRoute from '@/components/routes/PublicRoute';
 import PrivateRoute from '@/components/routes/PrivateRoute';
 import AuthPage from '@/pages/auth';
@@ -31,8 +31,9 @@ const App = () => {
 
         {/* Route(s) accessible both by authenticated and unauthenticated users. */}
 
-        {/* Catch-all route */}
+        {/* Error routes and reroutes */}
         <Route path='*' element={<NotFound />} />
+        <Route path='/' element={<Navigate to='/dashboard' replace />}></Route>
       </Routes>
     </Router>
   );
