@@ -1,6 +1,5 @@
 import { useForm } from 'react-hook-form';
-import Input from '@/components/Input';
-import Button from '@/components/Button';
+import { Button, Input } from '@/components/ui';
 import { useAppDispatch } from '@/hooks/hooks';
 import { login as loginUserThunk } from '@/features/auth/authThunks';
 import './LoginForm.css';

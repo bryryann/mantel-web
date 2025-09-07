@@ -1,6 +1,5 @@
 import { useForm } from 'react-hook-form';
-import Input from '@/components/Input';
-import Button from '@/components/Button';
+import { Input, Button } from '@/components/ui'
 import { useAppDispatch } from '@/hooks/hooks';
 import { register as registerUserThunk } from '@/features/auth/authThunks';
 import './RegisterForm.css';
@@ -41,7 +40,7 @@ const RegisterForm: React.FC = () => {
                 {...register('username', { required: 'Username is required' })}
                 error={errors.username?.message}
             />
-            
+
             <Input
                 label='Email'
                 type='email'

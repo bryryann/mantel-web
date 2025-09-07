@@ -2,7 +2,7 @@ import { useState } from 'react';
 import AuthLayout from '@/layouts/AuthLayout';
 import LoginForm from '@/components/auth/LoginForm';
 import RegisterForm from '@/components/auth/RegisterForm';
-import Button from '@/components/Button';
+import { Button } from '@/components/ui';
 import './AuthPage.css';
 
 const AuthPage = () => {

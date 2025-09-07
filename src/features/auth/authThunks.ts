@@ -2,7 +2,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { loginSuccess, logout } from './authSlice';
 import { loginUser, registerUser } from '@/services/authServices';
 import { User } from '@/types/auth';
-import { RootState } from '@/app/store';
 
 export const login = createAsyncThunk(
     'auth/login',
@@ -45,7 +44,7 @@ export const register = createAsyncThunk(
 
             dispatch(loginSuccess({ user: sanitizedUser, accessToken: loginData.access_token }));
         } catch (error: any) {
-            return rejectWithValue(error.response?.data || 'registration failed' );
+            return rejectWithValue(error.response?.data || 'registration failed');
         }
     }
 );
