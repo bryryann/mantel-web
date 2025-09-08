@@ -26,8 +26,8 @@ const RegisterForm: React.FC = () => {
             .then(() => {
                 Toast.success('User successfully registered.');
             })
-            .catch(err => {
-                Toast.error('Registration error: ' + err);
+            .catch((err: string) => {
+                Toast.error(`Registration error: ${err}`);
             });
     };
 

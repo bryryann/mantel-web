@@ -25,8 +25,8 @@ const LoginForm: React.FC = () => {
             .then(() => {
                 Toast.success('User logged in successfully.');
             })
-            .catch(err => {
-                Toast.error('Login error: ' + err);
+            .catch((err: string) => {
+                Toast.error(`Login error: ${err}`);
             });
     };
 

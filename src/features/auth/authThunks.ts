@@ -17,7 +17,11 @@ export const login = createAsyncThunk(
 
             dispatch(loginSuccess({ user: sanitizedUser, accessToken: data.access_token }));
         } catch (error: any) {
-            return rejectWithValue(error.response?.data || 'Login failed');
+            return rejectWithValue(
+                error.response?.data?.message ||
+                error.message ||
+                'Login failed'
+            );
         }
     }
 );
@@ -44,7 +48,11 @@ export const register = createAsyncThunk(
 
             dispatch(loginSuccess({ user: sanitizedUser, accessToken: loginData.access_token }));
         } catch (error: any) {
-            return rejectWithValue(error.response?.data || 'registration failed');
+            return rejectWithValue(
+                error.response?.data?.message ||
+                error.message ||
+                'Registration failed'
+            );
         }
     }
 );
