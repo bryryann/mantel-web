@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 import { Button, Input } from '@/components/ui';
 import { useAppDispatch } from '@/hooks/hooks';
 import { login as loginUserThunk } from '@/features/auth/authThunks';
+import Toast from '@/utils/toast';
 import './LoginForm.css';
 
 interface FormData {
@@ -22,12 +23,10 @@ const LoginForm: React.FC = () => {
         dispatch(loginUserThunk(data))
             .unwrap()
             .then(() => {
-                // TODO: Improve login success behaviour
-                console.log('user logged in succesfully');
+                Toast.success('User logged in successfully.');
             })
             .catch(err => {
-                // TODO: Improve login failure behaviour
-                console.error('login error:', err);
+                Toast.error('Login error: ' + err);
             });
     };
 

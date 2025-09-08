@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 import { Input, Button } from '@/components/ui'
 import { useAppDispatch } from '@/hooks/hooks';
 import { register as registerUserThunk } from '@/features/auth/authThunks';
+import Toast from '@/utils/toast';
 import './RegisterForm.css';
 
 interface FormData {
@@ -23,12 +24,10 @@ const RegisterForm: React.FC = () => {
         dispatch(registerUserThunk(data))
             .unwrap()
             .then(() => {
-                // TODO: Improve register success behaviour
-                console.log('user registered and logged in');
+                Toast.success('User successfully registered.');
             })
             .catch(err => {
-                // TODO: Improve register failure behaviour
-                console.error('registration error:', err);
+                Toast.error('Registration error: ' + err);
             });
     };
 
