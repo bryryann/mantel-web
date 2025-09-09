@@ -1,6 +1,5 @@
-import Navbar from '@/components/feed/Navbar';
+import { Navbar } from '@/components/shared';
 import './MainLayout.css';
-
 type MainLayoutProps = {
   children: React.ReactNode;
 };

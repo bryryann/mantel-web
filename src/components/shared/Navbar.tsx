@@ -1,13 +1,15 @@
-import { useAppDispatch } from '@/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '@/hooks/hooks';
 import { logoutUser as logoutUserThunk } from '@/features/auth/authThunks';
-import { Button } from '@/components/ui';
+import { selectUser } from '@/features/auth/authSelectors';
+import { ProfileDropdown } from '@/components/shared';
 import Toast from '@/utils/toast';
 import './Navbar.css';
 
 const Navbar = () => {
     const dispatch = useAppDispatch();
+    const user = useAppSelector(selectUser);
 
-    const onClick = () => {
+    const onLogout = () => {
         dispatch(logoutUserThunk())
             .unwrap()
             .then(() => {
@@ -20,12 +22,14 @@ const Navbar = () => {
 
     return (
         <nav className='navbar-container'>
-            <Button
-                variant='danger'
-                onClick={onClick}
-            >
-                Log out
-            </Button>
+            <div>
+                <h1>Mantel</h1>
+
+            </div>
+            <ProfileDropdown
+                username={user!.username}
+                onLogout={onLogout}
+            />
         </nav>
     );
 };
