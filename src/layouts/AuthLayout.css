@@ -1,5 +1,98 @@
 .auth-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+    font-family: 'Arial', sans-serif;
+    padding: 20px;
+}
+
+.auth-layout h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.auth-layout form {
+    width: 100%;
     max-width: 400px;
-    margin: 0 auto;
-    padding: 2rem;
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.auth-layout input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.auth-layout input:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+.auth-layout input.error {
+    border-color: red;
+}
+
+.auth-layout label {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.auth-layout .error-message {
+    color: red;
+    font-size: 0.875rem;
+    margin-top: 4px;
+}
+
+.auth-layout button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.auth-layout button:hover {
+    background-color: #0056b3;
+}
+
+.auth-layout .input-group {
+    margin-bottom: 20px;
+}
+
+.auth-layout .input-group:last-child {
+    margin-bottom: 0;
+}
+
+@media (max-width: 480px) {
+    .auth-layout {
+        padding: 10px;
+    }
+
+    .auth-layout form {
+        padding: 20px;
+        width: 90%;
+    }
+}
+}
+
+padding: 2rem;
 }
