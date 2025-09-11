@@ -1,59 +1,86 @@
-/* Button styles */
-btn-component {
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
+.btn-component {
+    display: inline-block;
+    padding: 12px 20px;
+    font-size: 1rem;
     font-weight: 600;
-    transition: background-color 0.2s ease;
-    cursor: pointer;
     border: none;
-}
-
-.btn-component:disabled {
-    opacity: 0.6s;
-    cursor: not-allowed;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    min-width: 120px;
 }
 
 .btn-primary {
-    background-color: #2563eb;
+    background-color: #007bff;
     color: white;
 }
 
-.btn-primary:hover:not(:disabled) {
-    background-color: #1d4ed8;
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-primary:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
 }
 
 .btn-secondary {
-    background-color: #6b7280;
+    background-color: #6c757d;
     color: white;
 }
 
-.btn-secondary:hover:not(:disabled) {
-    background-color: #4b5563;
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.btn-secondary:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(108, 117, 125, 0.5);
 }
 
 .btn-danger {
-    background-color: #dc2626;
+    background-color: #dc3545;
     color: white;
 }
 
-.btn-danger:hover:not(:disabled) {
-    background-color: #b91c1c;
+.btn-danger:hover {
+    background-color: #c82333;
 }
 
-/* Input styles */
-.input-component {
-    margin-bottom: 1rem;
+.btn-danger:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.5);
 }
 
-.input-component label {
-    display: block;
-    margin-bottom: .25rem;
+.btn-success {
+    background-color: #28a745;
+    color: white;
 }
 
-.input-component input {
-    padding: .5rem;
-    border-radius: 4px;
-    border-width: 1px;
-    border-style: solid;
-    width: 100%;
+.btn-success:hover {
+    background-color: #218838;
+}
+
+.btn-success:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.5);
+}
+
+.btn-large {
+    font-size: 1.125rem;
+    padding: 14px 24px;
+}
+
+.btn-small {
+    font-size: 0.875rem;
+    padding: 8px 16px;
+}
+
+.btn-component:disabled {
+    background-color: #e0e0e0;
+    color: #b0b0b0;
+    cursor: not-allowed;
+    box-shadow: none;
 }
