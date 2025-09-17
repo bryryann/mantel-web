@@ -16,7 +16,7 @@ Implements core features you'd expect from a social app — authentication, post
 
 ### 📦 Related Projects
 
-- [**Backend API (Go)**](https://github.com/bryanznk/mantel-api) — The REST API that powers this app.
+- [**Backend API (Go)**](https://github.com/bryryann/mantel-api) — The REST API that powers this app.
 
 ---
 
