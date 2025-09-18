@@ -1,13 +1,14 @@
 import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui';
+import { User } from '@/types';
 import './ProfileDropdown.css';
 
 interface ProfileDropdownProps {
-    username: string;
+    user: User;
     onLogout: () => void;
 };
 
-const ProfileDropdown: React.FC<ProfileDropdownProps> = ({ username, onLogout }) => {
+const ProfileDropdown: React.FC<ProfileDropdownProps> = ({ user, onLogout }) => {
     const [isOpen, setIsOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
 
@@ -30,12 +31,12 @@ const ProfileDropdown: React.FC<ProfileDropdownProps> = ({ username, onLogout })
                 className="profile-button"
                 onClick={() => setIsOpen(!isOpen)}
             >
-                👤 {username}
+                👤 {user.username}
             </Button>
 
             {isOpen && (
                 <div className="dropdown-menu">
-                    <a href="/profile" className="dropdown-item">Profile</a>
+                    <a href={`/profile/${user.id}`} className="dropdown-item">Profile</a>
                     <a href="/settings" className="dropdown-item">Settings</a>
                     <Button
                         onClick={onLogout}

@@ -5,6 +5,8 @@ import PrivateRoute from '@/components/routes/PrivateRoute';
 import { AuthPage } from '@/pages/auth';
 import { DashboardPage } from '@/pages/dashboard';
 import { NotFound } from '@/pages/errors';
+import { ProfilePage } from '@/pages/profile';
+import { SettingsPage } from '@/pages/settings';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -34,7 +36,23 @@ const App = () => {
             }
           ></Route>
 
+          <Route
+            path='/settings'
+            element={
+              <PrivateRoute>
+                <SettingsPage />
+              </PrivateRoute>
+            }
+          ></Route>
+
           {/* Route(s) accessible both by authenticated and unauthenticated users. */}
+          <Route
+            path='/profile/:userID'
+            element={
+                <ProfilePage />
+            }
+          ></Route>
+
 
           {/* Error routes and reroutes */}
           <Route path='*' element={<NotFound />} />

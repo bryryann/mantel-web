@@ -27,7 +27,7 @@ const Navbar = () => {
 
             </div>
             <ProfileDropdown
-                username={user!.username}
+                user={user!}
                 onLogout={onLogout}
             />
         </nav>
