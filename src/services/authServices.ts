@@ -13,7 +13,7 @@ export const loginUser = async (credentials: {username: string; password: string
 
 export const registerUser = async (userData: {
     username: string;
-    email: string;
+    email?: string;
     password: string;
 }): Promise<User> => {
     const res = await axios.post('/api/users', userData);
