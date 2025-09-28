@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@/hooks/hooks';
 import { logoutUser as logoutUserThunk } from '@/features/auth/authThunks';
 import { selectUser } from '@/features/auth/authSelectors';
@@ -23,9 +24,11 @@ const Navbar = () => {
     return (
         <nav className='navbar-container'>
             <div>
-                <h1>Mantel</h1>
-
+                <Link to='/' className='navbar-logo'>
+                    <h1>Mantel</h1>
+                </Link>
             </div>
+
             <ProfileDropdown
                 user={user!}
                 onLogout={onLogout}

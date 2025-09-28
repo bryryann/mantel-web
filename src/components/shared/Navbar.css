@@ -17,3 +17,8 @@
     display: inline-block;
     margin-left: 16px;
 }
+
+.navbar-logo {
+    text-decoration: none;
+    color: inherit;
+}
