@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchUser } from '@/services/userServices';
+import { ProfileLayout } from '@/layouts';
 import { User } from '@/types/auth';
 import './ProfilePage.css';
 
@@ -33,10 +34,12 @@ const ProfilePage = () => {
     if (!user) return <div>Loading...</div>;
 
     return (
-        <div>
-            <p>{user.username}'s profile</p>
-            <p>User ID: {userID}</p>
-        </div>
+        <ProfileLayout>
+            <div className='profile-card'>
+                <p>{user.username}'s profile</p>
+                <p><span className='mantel-id'>Mantel ID:</span> {userID}</p>
+            </div>
+        </ProfileLayout>
     );
 };
 
