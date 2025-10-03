@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/hooks/hooks';
 import { logoutUser as logoutUserThunk } from '@/features/auth/authThunks';
 import { selectUser } from '@/features/auth/authSelectors';
@@ -7,8 +8,15 @@ import Toast from '@/utils/toast';
 import './Navbar.css';
 
 const Navbar = () => {
+    const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const user = useAppSelector(selectUser);
+
+    useEffect(() => {
+        if (user === null) {
+            navigate('/auth', {replace: true});
+        }
+    }, [user, navigate]);
 
     const onLogout = () => {
         dispatch(logoutUserThunk())
@@ -28,11 +36,14 @@ const Navbar = () => {
                     <h1>Mantel</h1>
                 </Link>
             </div>
+            
+            {user && (
+                <ProfileDropdown
+                    user={user!}
+                    onLogout={onLogout}
+                />
+            )}
 
-            <ProfileDropdown
-                user={user!}
-                onLogout={onLogout}
-            />
         </nav>
     );
 };
