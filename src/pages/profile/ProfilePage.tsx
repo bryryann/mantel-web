@@ -2,9 +2,13 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchUser } from '@/services/userServices';
 import { ProfileLayout } from '@/layouts';
+import { UserFollowList } from '@/components/profile'
 import { Modal } from '@/components/shared';
+import { Button } from '@/components/ui';
 import { User } from '@/types/auth';
 import './ProfilePage.css';
+
+type ModalContent = 'followers' | 'following';
 
 type ProfilePageParams = {
     userID: string;
@@ -13,12 +17,17 @@ type ProfilePageParams = {
 const ProfilePage = () => {
     const [user, setUser] = useState<User | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const [modalContent, setModalContent] = useState<ModalContent>('followers');
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
     const { userID } = useParams<ProfilePageParams>();
 
-    useEffect(() => {
+    const openModal = (content: ModalContent) => {
+        setIsModalOpen(true);
+        setModalContent(content);
+    };
 
+    useEffect(() => {
         const fetchData = async (id: string) => {
             try {
                 setError(null);
@@ -42,13 +51,13 @@ const ProfilePage = () => {
             <div className='profile-card'>
                 <p>{user.username}'s profile</p>
                 <p><span className='mantel-id'>Mantel ID:</span> {userID}</p>
+                <Button onClick={() => openModal('followers')}>Followers</Button>
+                &nbsp;
+                <Button onClick={() => openModal('following')}>Following</Button>
             </div>
 
-            <button onClick={() => setIsModalOpen(true)}>modal</button>
-
             <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-                <h2>modal</h2>
-                <p>modal modal</p>
+                <UserFollowList content={modalContent}/>
             </Modal>
         </ProfileLayout>
     );

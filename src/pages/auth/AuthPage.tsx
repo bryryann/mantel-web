@@ -6,7 +6,6 @@ import { Button } from '@/components/ui';
 import './AuthPage.css';
 
 const AuthPage = () => {
-    console.log('auth page loaded');
     const [formType, setFormType] = useState<'login' | 'register'>('login');
 
     return (
