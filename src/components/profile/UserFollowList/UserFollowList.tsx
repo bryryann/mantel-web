@@ -11,7 +11,7 @@ type UserFollowListProps = {
 
 const UserFollowList: React.FC<UserFollowListProps> = ({ content }) => {
     const user = useAppSelector(selectUser);
-    const [userList, setUserList] = useState<User[]>([]);
+    const [userList, setUserList] = useState<User[] | null>(null);
 
     useEffect(() => {
         const fetchContent = async (content) => {
@@ -29,7 +29,30 @@ const UserFollowList: React.FC<UserFollowListProps> = ({ content }) => {
         fetchContent(content);
     }, []);
 
-    return <p>{content}</p>
+    return (
+        <div className='user-follows-list'>
+              <h3>
+                {
+                    content === 'followees' ?
+                    'FOLLOWING'
+                    :
+                    content.toUpperCase()
+                }
+            </h3>
+            
+              {userList && userList.length > 0 ? (
+                    <ul className='user-list'>
+                          {userList.map((user) => (
+                                <li key={user.id} className='user-list-item'>
+                                      <span>{user.username}</span>
+                                </li>
+                          ))}
+                    </ul>
+              ) : (
+                    <p className='empty-user-list-message'>N/A</p>
+              )}
+        </div>
+    );
 };
 
 export default UserFollowList;

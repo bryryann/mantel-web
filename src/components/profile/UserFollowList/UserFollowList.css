@@ -1,0 +1,53 @@
+.user-follows-list {
+  background-color: white;
+  padding: 24px 32px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.user-follows-list h3 {
+  margin-top: 0;
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+.user-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.user-list-item {
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 1rem;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-list-item:last-child {
+  border-bottom: none;
+}
+
+.user-list-item span {
+  opacity: 0.85;
+}
+
+/* Optional: Empty state */
+.empty-user-list-message {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 1rem;
+  color: #999;
+  font-style: italic;
+}

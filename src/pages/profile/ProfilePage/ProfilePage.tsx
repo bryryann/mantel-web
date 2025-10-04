@@ -51,9 +51,19 @@ const ProfilePage = () => {
             <div className='profile-card'>
                 <p>{user.username}'s profile</p>
                 <p><span className='mantel-id'>Mantel ID:</span> {userID}</p>
-                <Button onClick={() => openModal('followers')}>Followers</Button>
+                <Button 
+                    onClick={() => openModal('followers')}
+                    className='profile-follow-data-btn'
+                >
+                    Followers
+                </Button>
                 &nbsp;
-                <Button onClick={() => openModal('followees')}>Following</Button>
+                <Button 
+                    onClick={() => openModal('followees')}
+                    className='profile-follow-data-btn'
+                >
+                    Following
+                </Button>
             </div>
 
             <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
