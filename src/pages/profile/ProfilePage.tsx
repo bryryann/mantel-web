@@ -8,7 +8,7 @@ import { Button } from '@/components/ui';
 import { User } from '@/types/auth';
 import './ProfilePage.css';
 
-type ModalContent = 'followers' | 'following';
+type ModalContent = 'followers' | 'followees';
 
 type ProfilePageParams = {
     userID: string;
@@ -53,7 +53,7 @@ const ProfilePage = () => {
                 <p><span className='mantel-id'>Mantel ID:</span> {userID}</p>
                 <Button onClick={() => openModal('followers')}>Followers</Button>
                 &nbsp;
-                <Button onClick={() => openModal('following')}>Following</Button>
+                <Button onClick={() => openModal('followees')}>Following</Button>
             </div>
 
             <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>

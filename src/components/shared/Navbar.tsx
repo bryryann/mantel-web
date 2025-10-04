@@ -36,7 +36,7 @@ const Navbar = () => {
                     <h1>Mantel</h1>
                 </Link>
             </div>
-            
+
             {user && (
                 <ProfileDropdown
                     user={user!}
