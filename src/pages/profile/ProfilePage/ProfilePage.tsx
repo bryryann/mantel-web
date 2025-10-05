@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchUser } from '@/services/userServices';
+import { useAppSelector } from '@/hooks/hooks';
+import { selectUser } from '@/features/auth/authSelectors';
 import { ProfileLayout } from '@/layouts';
 import { UserFollowList } from '@/components/profile'
 import { Modal } from '@/components/shared';
@@ -21,6 +23,9 @@ const ProfilePage = () => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
     const { userID } = useParams<ProfilePageParams>();
+    const currentUser = useAppSelector(selectUser);
+
+    const isOwnProfile = userID === currentUser?.id;
 
     const openModal = (content: ModalContent) => {
         setIsModalOpen(true);
@@ -49,8 +54,16 @@ const ProfilePage = () => {
     return (
         <ProfileLayout>
             <div className='profile-card'>
+                {!isOwnProfile && (
+                    <Button className='follow-feat-btn'>Follow</Button>
+                )}
+                {isOwnProfile && (
+                    <Button className='edit-profile-btn'>Edit Profile</Button>
+                )}
+
                 <p>{user.username}'s profile</p>
                 <p><span className='mantel-id'>Mantel ID:</span> {userID}</p>
+                
                 <Button 
                     onClick={() => openModal('followers')}
                     className='profile-follow-data-btn'
