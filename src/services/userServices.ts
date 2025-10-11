@@ -5,6 +5,11 @@ interface UserResponse {
     user: User;
 };
 
+interface FollowResponse {
+    follower_id: string;
+    followee_id: string;
+}
+
 type FollowType = 'followees' | 'followers';
 
 export const fetchUser = async (userID: string): Promise<UserResponse> => {
@@ -19,3 +24,19 @@ export const fetchFollowData = async (userID: string, type: FollowType): Promise
 
     return res.data[type];
 };
+
+export const followUser = async (token: string, userID: string, followeeID: string): Promise<FollowResponse> => {
+    const requestURL = `/api/users/${userID}/follow`;
+    const requestBody = {
+        followee_id: followeeID,
+    };
+    const requestConfig = {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        },
+    };
+
+    const res = await axios.post<FollowResponse>(requestURL, requestBody, requestConfig);
+    return res.data;
+}
