@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchUser } from '@/services/userServices';
+import { fetchUser, isFollowing } from '@/services/userServices';
 import { useAppSelector } from '@/hooks/hooks';
 import { selectUser } from '@/features/auth/authSelectors';
 import { ProfileLayout } from '@/layouts';
@@ -19,6 +19,7 @@ type ProfilePageParams = {
 const ProfilePage = () => {
     const [user, setUser] = useState<User | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const [following, setFollowing] = useState<boolean | null>(null);
     const [modalContent, setModalContent] = useState<ModalContent>('followers');
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -37,6 +38,12 @@ const ProfilePage = () => {
             try {
                 setError(null);
                 const data = await fetchUser(id);
+
+                if (data.user.id != currentUser.id) {
+                    const followStatus = await isFollowing(id, data.user.id);
+
+                    setFollowing(followStatus);
+                }
                 setUser(data.user);
             } catch (err: any) {
                 console.log(err);
@@ -48,6 +55,7 @@ const ProfilePage = () => {
         fetchData(userID);
     }, [userID]);
 
+
     if (error) return <div>Error: {error}</div>
     if (!user) return <div>Loading...</div>;
 
@@ -55,6 +63,9 @@ const ProfilePage = () => {
         <ProfileLayout>
             <div className='profile-card'>
                 {!isOwnProfile && (
+                    following ?
+                    <Button className='unfollow-feat-btn'>Unfollow</Button>
+                    :
                     <Button className='follow-feat-btn'>Follow</Button>
                 )}
                 {isOwnProfile && (

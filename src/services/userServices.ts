@@ -10,6 +10,10 @@ interface FollowResponse {
     followee_id: string;
 }
 
+interface IsFollowingResponse {
+    is_following: boolean;
+}
+
 type FollowType = 'followees' | 'followers';
 
 export const fetchUser = async (userID: string): Promise<UserResponse> => {
@@ -24,6 +28,14 @@ export const fetchFollowData = async (userID: string, type: FollowType): Promise
 
     return res.data[type];
 };
+
+export const isFollowing = async(userID: string, followeeID: string): Promise<IsFollowingResponse> => {
+    const requestURL = `/api/users/${userID}/follows/${followeeID}`;
+
+    const res = await axios.get<IsFollowingResponse>(requestURL);
+
+    return res.data.is_following;
+}
 
 export const followUser = async (token: string, userID: string, followeeID: string): Promise<FollowResponse> => {
     const requestURL = `/api/users/${userID}/follow`;

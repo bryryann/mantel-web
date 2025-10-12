@@ -84,6 +84,32 @@
     box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.4);
 }
 
+.unfollow-feat-btn {
+    background-color: #ef4444;
+    border: 1px solid transparent;
+    color: white;
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    margin-top: 16px;
+}
+
+.unfollow-feat-btn:hover {
+    background-color: #dc2626;
+}
+
+.unfollow-feat-btn:active {
+    background-color: #b91c1c;
+}
+
+.unfollow-feat-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.4);
+}
+
 .edit-profile-btn {
     background-color: transparent;
     border: 1px solid #ccc;
@@ -113,7 +139,8 @@
 }
 
 .follow-feat-btn,
-.edit-profile-btn {
+.edit-profile-btn,
+.unfollow-feat-btn {
     position: absolute;
     top: 24px;
     right: 32px;
