@@ -1,4 +1,4 @@
-import { User } from '@/types';
+import { User } from '@/types/auth';
 import axios from 'axios';
 
 interface UserResponse {
@@ -29,18 +29,17 @@ export const fetchFollowData = async (userID: string, type: FollowType): Promise
     return res.data[type];
 };
 
-export const isFollowing = async(userID: string, followeeID: string): Promise<IsFollowingResponse> => {
+export const isFollowing = async (userID: string, followeeID: string): Promise<IsFollowingResponse> => {
     const requestURL = `/api/users/${userID}/follows/${followeeID}`;
 
     const res = await axios.get<IsFollowingResponse>(requestURL);
 
-    return res.data.is_following;
+    return res.data;
 }
 
 export const followUser = async (token: string, userID: string, followeeID: string): Promise<FollowResponse> => {
-    const requestURL = `/api/users/${userID}/follow`;
     const requestBody = {
-        followee_id: followeeID,
+        followee_id: parseInt(followeeID),
     };
     const requestConfig = {
         headers: {
@@ -49,6 +48,10 @@ export const followUser = async (token: string, userID: string, followeeID: stri
         },
     };
 
-    const res = await axios.post<FollowResponse>(requestURL, requestBody, requestConfig);
+    const res = await axios.post<FollowResponse>(
+        `/api/users/${userID}/follow`, 
+        requestBody, 
+        requestConfig
+    );
     return res.data;
 }

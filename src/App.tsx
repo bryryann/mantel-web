@@ -47,7 +47,7 @@ const App = () => {
 
           {/* Route(s) accessible both by authenticated and unauthenticated users. */}
           <Route
-            path='/profile/:userID'
+            path='/profile/:id'
             element={
                 <ProfilePage />
             }
