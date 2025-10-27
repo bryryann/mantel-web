@@ -103,7 +103,7 @@ const ProfilePage = () => {
             </div>
 
             <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-                <UserFollowList content={modalContent} />
+                <UserFollowList content={modalContent} userId={id} />
             </Modal>
         </ProfileLayout>
     );
