@@ -49,9 +49,10 @@ export const followUser = async (token: string, userID: string, followeeID: stri
     };
 
     const res = await axios.post<FollowResponse>(
-        `/api/users/${userID}/follow`, 
-        requestBody, 
+        `/api/users/${userID}/follow`,
+        requestBody,
         requestConfig
     );
+    console.log(res.data);
     return res.data;
 }

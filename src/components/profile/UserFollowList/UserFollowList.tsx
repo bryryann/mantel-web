@@ -17,11 +17,11 @@ const UserFollowList: React.FC<UserFollowListProps> = ({ content }) => {
         const fetchContent = async (content) => {
             if (content === 'followers') {
                 const followers = await fetchFollowData(user.id, content);
-                console.log(followers);
+                setUserList(followers);
             }
             else if (content === 'followees') {
                 const followees = await fetchFollowData(user.id, content);
-                console.log(followees);
+                setUserList(followees);
             }
         }
 
@@ -29,28 +29,29 @@ const UserFollowList: React.FC<UserFollowListProps> = ({ content }) => {
         fetchContent(content);
     }, []);
 
+    if (userList === null) return <p>Loading</p>;
     return (
         <div className='user-follows-list'>
-              <h3>
+            <h3>
                 {
                     content === 'followees' ?
-                    'FOLLOWING'
-                    :
-                    content.toUpperCase()
+                        'FOLLOWING'
+                        :
+                        content.toUpperCase()
                 }
             </h3>
-            
-              {userList && userList.length > 0 ? (
-                    <ul className='user-list'>
-                          {userList.map((user) => (
-                                <li key={user.id} className='user-list-item'>
-                                      <span>{user.username}</span>
-                                </li>
-                          ))}
-                    </ul>
-              ) : (
-                    <p className='empty-user-list-message'>N/A</p>
-              )}
+
+            {userList && userList.length > 0 ? (
+                <ul className='user-list'>
+                    {userList.map((user) => (
+                        <li key={user.id} className='user-list-item'>
+                            <span>{user.username}</span>
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <p className='empty-user-list-message'>N/A</p>
+            )}
         </div>
     );
 };
