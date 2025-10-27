@@ -33,17 +33,39 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.user-list-item a,
+.user-profile-link {
+  text-decoration: none;
+  color: #0073e6;
+  font-weight: 500;
+  transition: color 0.2s ease;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.user-list-item:hover {
+  background-color: #f9f9f9;
+  transform: translateX(2px);
+  border-radius: 8px;
+}
+
+.user-list-item:hover .user-profile-link {
+  color: #005bb5;
+  text-decoration: underline;
+}
+
+.user-list-item:active {
+  transform: translateX(0);
+  background-color: #f0f7ff;
 }
 
 .user-list-item:last-child {
   border-bottom: none;
 }
 
-.user-list-item span {
-  opacity: 0.85;
-}
-
-/* Optional: Empty state */
 .empty-user-list-message {
   text-align: center;
   margin-top: 20px;

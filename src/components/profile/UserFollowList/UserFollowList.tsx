@@ -1,7 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { useAppSelector } from '@/hooks/hooks';
-import { selectUser } from '@/features/auth/authSelectors';
 import { fetchFollowData } from '@/services/userServices';
 import { User } from '@/types';
 import './UserFollowList.css';
@@ -46,9 +44,9 @@ const UserFollowList: React.FC<UserFollowListProps> = ({ content, userId }) => {
                 <ul className="user-list">
                     {userList.map((user) => (
                         <li
-                            key={userId}
+                            key={user.id}
                             className="user-list-item"
-                            onClick={() => handleUserClick(userId)}
+                            onClick={() => handleUserClick(user.id)}
                         >
                             <span className="user-profile-link">{user.username}</span>
                         </li>

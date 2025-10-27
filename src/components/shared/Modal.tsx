@@ -10,9 +10,12 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
     if (!isOpen) return null;
 
     return (
-        <div className='modal-backdrop'>
-            <div className='modal'>
-                <button className='close-btn' onClick={onClose}>x</button>
+        <div
+            className="modal-backdrop"
+            onClick={onClose}
+        >
+            <div className="modal" onClick={(e) => e.stopPropagation()}>
+                <button className="close-btn" onClick={onClose}>×</button>
                 {children}
             </div>
         </div>
