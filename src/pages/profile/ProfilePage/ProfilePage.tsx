@@ -1,15 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchUser, isFollowing, followUser } from '@/services/userServices';
 import { useAppSelector } from '@/hooks/hooks';
 import { selectAccessToken, selectUser } from '@/features/auth/authSelectors';
 import { ProfileLayout } from '@/layouts';
-import { UserFollowList } from '@/components/profile'
+import { UserFollowList } from '@/components/profile';
 import { Modal } from '@/components/shared';
 import { Button } from '@/components/ui';
 import { User } from '@/types/auth';
-import './ProfilePage.css';
 import Toast from '@/utils/toast';
+import './ProfilePage.css';
 
 type ModalContent = 'followers' | 'followees';
 
@@ -18,7 +18,7 @@ const ProfilePage = () => {
     const [error, setError] = useState<string | null>(null);
     const [following, setFollowing] = useState<boolean | null>(null);
     const [modalContent, setModalContent] = useState<ModalContent>('followers');
-    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const { id } = useParams<{ id: string }>();
     const currentUser = useAppSelector(selectUser);
@@ -26,84 +26,92 @@ const ProfilePage = () => {
 
     const isOwnProfile = id === currentUser?.id;
 
-    const openModal = (content: ModalContent) => {
-        setIsModalOpen(true);
-        setModalContent(content);
-    };
+    const loadProfile = useCallback(async () => {
+        if (!id) return;
+        try {
+            setError(null);
+            setUser(null);
+            const data = await fetchUser(id);
+            setUser(data.user);
+
+            if (data.user.id !== currentUser?.id) {
+                const followStatus = await isFollowing(currentUser.id, data.user.id);
+                setFollowing(followStatus.is_following);
+            } else {
+                setFollowing(null);
+            }
+        } catch (err: any) {
+            console.error(err);
+            setError(err.message || 'An unknown error occurred.');
+        }
+    }, [id, currentUser]);
 
     useEffect(() => {
-        const fetchData = async (id: string) => {
-            try {
-                setError(null);
-                const data = await fetchUser(id);
+        loadProfile();
+    }, [loadProfile]);
 
-                if (data.user.id != currentUser!.id) {
-                    const followStatus = await isFollowing(id, data.user.id);
+    const onFollowToggle = async () => {
+        if (!accessToken || !currentUser || !id) return;
 
-                    setFollowing(followStatus.is_following);
-                }
-                setUser(data.user);
-            } catch (err: any) {
-                console.log(err);
-                setError(err.message || "An unknown error has occurred.");
-                setUser(null);
-            }
-        };
+        const optimisticState = !following;
+        setFollowing(optimisticState);
 
-        fetchData(id);
-    }, [id, following]);
-
-    const onFollow = async () => {
         try {
             await followUser(accessToken, currentUser.id, id);
-            setFollowing(prev => !prev);
+            Toast.success(optimisticState ? 'Followed!' : 'Unfollowed!');
         } catch (err: any) {
-            console.log(err);
-            Toast.error(err.message || "An unknown error has occurred.");
+            console.error(err);
+            setFollowing(!optimisticState);
+            Toast.error(err.message || 'An unknown error occurred.');
         }
-    }
+    };
 
-    if (error) return <div>Error: {error}</div>
-    if (!user) return <div>Loading...</div>;
+    const openModal = (content: ModalContent) => {
+        setModalContent(content);
+        setIsModalOpen(true);
+    };
+
+    if (error) return <div className="error-msg">Error: {error}</div>;
+    if (!user) return <div className="loading-msg">Loading...</div>;
 
     return (
         <ProfileLayout>
-            <div className='profile-card'>
-                {!isOwnProfile && (
-                    following ?
-                        <Button className='unfollow-feat-btn'>Unfollow</Button>
-                        :
-                        <Button
-                            className='follow-feat-btn'
-                            onClick={onFollow}
-                        >
-                            Follow
-                        </Button>
+            <div className="profile-card">
+                {!isOwnProfile && following !== null && (
+                    <Button
+                        className={following ? 'unfollow-feat-btn' : 'follow-feat-btn'}
+                        onClick={onFollowToggle}
+                    >
+                    {following ? 'Unfollow' : 'Follow'}
+                    </Button>
                 )}
+
                 {isOwnProfile && (
-                    <Button className='edit-profile-btn'>Edit Profile</Button>
+                    <Button className="edit-profile-btn">Edit Profile</Button>
                 )}
 
                 <p>{user.username}'s profile</p>
-                <p><span className='mantel-id'>Mantel ID:</span> {id}</p>
+                <p>
+                <span className="mantel-id">Mantel ID:</span> {id}
+                </p>
 
                 <Button
                     onClick={() => openModal('followers')}
-                    className='profile-follow-data-btn'
+                    className="profile-follow-data-btn"
                 >
                     Followers
                 </Button>
                 &nbsp;
                 <Button
                     onClick={() => openModal('followees')}
-                    className='profile-follow-data-btn'
+                    className="profile-follow-data-btn"
                 >
                     Following
                 </Button>
             </div>
 
             <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-                <UserFollowList content={modalContent} userId={id} />
+                <UserFollowList content={modalContent} userId={id!} />
             </Modal>
         </ProfileLayout>
     );

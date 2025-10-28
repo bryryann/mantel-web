@@ -33,6 +33,7 @@ export const isFollowing = async (userID: string, followeeID: string): Promise<I
     const requestURL = `/api/users/${userID}/follows/${followeeID}`;
 
     const res = await axios.get<IsFollowingResponse>(requestURL);
+    console.log(res.data);
 
     return res.data;
 }
