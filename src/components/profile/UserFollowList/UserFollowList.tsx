@@ -25,7 +25,6 @@ const UserFollowList: React.FC<UserFollowListProps> = ({ content, userId }) => {
             }
         }
 
-        console.log(content);
         fetchContent(content);
     }, []);
 

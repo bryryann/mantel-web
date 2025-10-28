@@ -33,7 +33,6 @@ export const isFollowing = async (userID: string, followeeID: string): Promise<I
     const requestURL = `/api/users/${userID}/follows/${followeeID}`;
 
     const res = await axios.get<IsFollowingResponse>(requestURL);
-    console.log(res.data);
 
     return res.data;
 }
@@ -65,5 +64,4 @@ export const unfollowUser = async (token: string, userID: string, followeeID: st
     };
 
     const res = await axios.post(`/api/users/${userID}/unfollow/${followeeID}`, null, requestConfig);
-    console.log(res);
 }
