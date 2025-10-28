@@ -54,6 +54,16 @@ export const followUser = async (token: string, userID: string, followeeID: stri
         requestBody,
         requestConfig
     );
-    console.log(res.data);
     return res.data;
+}
+
+export const unfollowUser = async (token: string, userID: string, followeeID: string): Promise<void> => {
+    const requestConfig = {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    };
+
+    const res = await axios.post(`/api/users/${userID}/unfollow/${followeeID}`, null, requestConfig);
+    console.log(res);
 }

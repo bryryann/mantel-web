@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchUser, isFollowing, followUser } from '@/services/userServices';
+import { fetchUser, isFollowing, followUser, unfollowUser } from '@/services/userServices';
 import { useAppSelector } from '@/hooks/hooks';
 import { selectAccessToken, selectUser } from '@/features/auth/authSelectors';
 import { ProfileLayout } from '@/layouts';
@@ -57,8 +57,13 @@ const ProfilePage = () => {
         setFollowing(optimisticState);
 
         try {
-            await followUser(accessToken, currentUser.id, id);
-            Toast.success(optimisticState ? 'Followed!' : 'Unfollowed!');
+            if (optimisticState) {
+                await followUser(accessToken, currentUser.id, id);
+                Toast.success('Followed!');
+            } else {
+                await unfollowUser(accessToken, currentUser.id, id);
+                Toast.success('Unfollowed!');
+            }
         } catch (err: any) {
             console.error(err);
             setFollowing(!optimisticState);
