@@ -104,19 +104,30 @@ const ProfilePage = () => {
                     {user.follow_data.following_count} <span className="mantel-id">Following</span> 
                 </p>
 
-                <Button
-                    onClick={() => openModal('followers')}
-                    className="profile-follow-data-btn"
-                >
-                    Followers
-                </Button>
-                &nbsp;
-                <Button
-                    onClick={() => openModal('followees')}
-                    className="profile-follow-data-btn"
-                >
-                    Following
-                </Button>
+                {/* Follower Stats */}
+                <div className="follow-stats">
+                    <button
+                        className="follow-stat-item"
+                        onClick={() => {
+                            setModalContent('followers');
+                            setIsModalOpen(true);
+                        }}
+                    >
+                        <span className="count">{user.follow_data.followers_count}</span>
+                        <span className="label">Followers</span>
+                    </button>
+
+                    <button
+                        className="follow-stat-item"
+                        onClick={() => {
+                            setModalContent('followees');
+                            setIsModalOpen(true);
+                        }}
+                    >
+                        <span className="count">{user.follow_data.following_count}</span>
+                        <span className="label">Following</span>
+                    </button>
+                </div>
             </div>
 
             <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
