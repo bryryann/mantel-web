@@ -1,9 +1,14 @@
 import { User } from '@/types/auth';
 import axios from 'axios';
 
-interface UserResponse {
-    user: User;
-};
+export interface UserMetadata {
+    follow_data: {
+        followers_count: number;
+        following_count: number;
+    }
+}
+
+export type UserProfile = User & UserMetadata;
 
 interface FollowResponse {
     follower_id: string;
@@ -16,8 +21,10 @@ interface IsFollowingResponse {
 
 type FollowType = 'followees' | 'followers';
 
-export const fetchUser = async (userID: string): Promise<UserResponse> => {
-    const res: { data: UserResponse } = await axios.get(`/api/users/${userID}`);
+export const fetchUser = async (userID: string): Promise<UserProfile> => {
+    const res: { data: UserProfile } = await axios.get(`/api/users/${userID}`);
+
+    console.log(res.data);
 
     return res.data;
 };

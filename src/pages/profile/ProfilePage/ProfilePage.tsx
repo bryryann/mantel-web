@@ -1,20 +1,19 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchUser, isFollowing, followUser, unfollowUser } from '@/services/userServices';
+import { UserProfile, fetchUser, isFollowing, followUser, unfollowUser } from '@/services/userServices';
 import { useAppSelector } from '@/hooks/hooks';
 import { selectAccessToken, selectUser } from '@/features/auth/authSelectors';
 import { ProfileLayout } from '@/layouts';
 import { UserFollowList } from '@/components/profile';
 import { Modal } from '@/components/shared';
 import { Button } from '@/components/ui';
-import { User } from '@/types/auth';
 import Toast from '@/utils/toast';
 import './ProfilePage.css';
 
 type ModalContent = 'followers' | 'followees';
 
 const ProfilePage = () => {
-    const [user, setUser] = useState<User | null>(null);
+    const [user, setUser] = useState<UserProfile | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [following, setFollowing] = useState<boolean | null>(null);
     const [modalContent, setModalContent] = useState<ModalContent>('followers');
@@ -98,6 +97,11 @@ const ProfilePage = () => {
                 <p>{user.username}'s profile</p>
                 <p>
                 <span className="mantel-id">Mantel ID:</span> {id}
+                </p>
+                <p>
+                    {user.follow_data.followers_count} <span className="mantel-id">Followers</span> 
+                    <br />
+                    {user.follow_data.following_count} <span className="mantel-id">Following</span> 
                 </p>
 
                 <Button
