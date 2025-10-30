@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks/hooks';
 import { logoutUser as logoutUserThunk } from '@/features/auth/authThunks';
 import { selectUser } from '@/features/auth/authSelectors';
 import { ProfileDropdown } from '@/components/shared';
+import { Button } from '@/components/ui';
 import Toast from '@/utils/toast';
 import './Navbar.css';
 
@@ -11,12 +12,6 @@ const Navbar = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const user = useAppSelector(selectUser);
-
-    useEffect(() => {
-        if (user === null) {
-            navigate('/auth', {replace: true});
-        }
-    }, [user, navigate]);
 
     const onLogout = () => {
         dispatch(logoutUserThunk())
@@ -37,13 +32,21 @@ const Navbar = () => {
                 </Link>
             </div>
 
-            {user && (
-                <ProfileDropdown
-                    user={user!}
-                    onLogout={onLogout}
-                />
-            )}
-
+            <div className='navbar-actions'>
+                {user ? (
+                    <ProfileDropdown
+                        user={user!}
+                        onLogout={onLogout}
+                    />
+                ) : (
+                    <Button
+                        className='login-btn'
+                        onClick={() => navigate('/auth')}
+                    >
+                        Log In / Sign Up
+                    </Button>
+                )}
+            </div>
         </nav>
     );
 };

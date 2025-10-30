@@ -13,7 +13,6 @@ import 'react-toastify/dist/ReactToastify.css';
 const App = () => {
   return (
     <>
-
       <Router>
         <Routes>
           {/* Route(s) accessible only for unauthenticated users. */}

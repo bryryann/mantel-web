@@ -33,7 +33,7 @@ const ProfilePage = () => {
             const data = await fetchUser(id);
             setUser(data.user);
 
-            if (data.user.id !== currentUser?.id) {
+            if (currentUser && data.user.id !== currentUser?.id) {
                 const followStatus = await isFollowing(currentUser.id, data.user.id);
                 setFollowing(followStatus.is_following);
             } else {
@@ -81,7 +81,7 @@ const ProfilePage = () => {
     return (
         <ProfileLayout>
             <div className="profile-card">
-                {!isOwnProfile && following !== null && (
+                {currentUser && !isOwnProfile && following !== null && (
                     <Button
                         className={following ? 'unfollow-feat-btn' : 'follow-feat-btn'}
                         onClick={onFollowToggle}
@@ -90,7 +90,7 @@ const ProfilePage = () => {
                     </Button>
                 )}
 
-                {isOwnProfile && (
+                {isOwnProfile && currentUser && (
                     <Button className="edit-profile-btn">Edit Profile</Button>
                 )}
 
