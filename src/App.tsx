@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import { useSelector } from 'react-redux';
 import PublicRoute from '@/components/routes/PublicRoute';
 import PrivateRoute from '@/components/routes/PrivateRoute';
 import { AuthPage } from '@/pages/auth';
@@ -7,10 +8,14 @@ import { DashboardPage } from '@/pages/dashboard';
 import { NotFound } from '@/pages/errors';
 import { ProfilePage } from '@/pages/profile';
 import { SettingsPage } from '@/pages/settings';
+import { selectIsAuthenticated } from '@/features/auth/authSelectors';
+
 
 import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+
   return (
     <>
       <Router>
@@ -58,6 +63,14 @@ const App = () => {
           <Route path='/' element={<Navigate to='/dashboard' replace />}></Route>
         </Routes>
       </Router>
+
+      {isAuthenticated && (
+        <button
+          className='floating-new-post-btn'
+        >
+          + New Post
+        </button>
+      )}
 
       <ToastContainer
         position='bottom-left'
