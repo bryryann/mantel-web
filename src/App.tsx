@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { ToastContainer } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import { Modal } from '@/components/shared';
+import { NewPostForm } from '@/components/posts';
 import PublicRoute from '@/components/routes/PublicRoute';
 import PrivateRoute from '@/components/routes/PrivateRoute';
 import { AuthPage } from '@/pages/auth';
@@ -77,7 +78,7 @@ const App = () => {
       )}
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <p>new post form</p>
+        <NewPostForm />
       </Modal>
 
       <ToastContainer
