@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { useSelector } from 'react-redux';
+import { Modal } from '@/components/shared';
 import PublicRoute from '@/components/routes/PublicRoute';
 import PrivateRoute from '@/components/routes/PrivateRoute';
 import { AuthPage } from '@/pages/auth';
@@ -15,6 +17,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   const isAuthenticated = useSelector(selectIsAuthenticated);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <>
@@ -67,10 +70,15 @@ const App = () => {
       {isAuthenticated && (
         <button
           className='floating-new-post-btn'
+          onClick={() => setIsModalOpen(true)}
         >
           + New Post
         </button>
       )}
+
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <p>new post form</p>
+      </Modal>
 
       <ToastContainer
         position='bottom-left'

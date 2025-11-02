@@ -70,11 +70,6 @@ const ProfilePage = () => {
         }
     };
 
-    const openModal = (content: ModalContent) => {
-        setModalContent(content);
-        setIsModalOpen(true);
-    };
-
     if (error) return <div className="error-msg">Error: {error}</div>;
     if (!user) return <div className="loading-msg">Loading...</div>;
 
