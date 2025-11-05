@@ -1,6 +1,8 @@
 import { useForm } from 'react-hook-form';
-import { useAppDispatch } from '@/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '@/hooks/hooks';
+import { selectAccessToken } from '@/features/auth/authSelectors';
 import { Button, TextArea } from '@/components/ui';
+import { newPost } from '@/services/postServices';
 import Toast from '@/utils/toast';
 import './NewPostForm.css';
 
@@ -10,6 +12,7 @@ interface FormData {
 
 const NewPostForm = () => {
     const dispatch = useAppDispatch();
+    const token = useAppSelector(selectAccessToken);
 
     const {
         register,
@@ -18,14 +21,25 @@ const NewPostForm = () => {
     } = useForm<FormData>();
 
     const onSubmit = (data: FormData) => {
-        console.log('posting....');
+        const submitData = async () => {
+            try {
+                const response = await newPost(token!, data.content)
+
+                console.log(response);
+                Toast.success('Post sent!');
+            }
+            catch (err) {
+                Toast.error(`Error sending post: ${err}`);
+            }
+        }
+
+        submitData();
     }
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <TextArea 
+            <TextArea
                 label='New Post'
-                name='new-post-textarea'
                 error={errors.content?.message}
                 {...register('content', { required: 'Post content is required' })}
                 className='new-post-textarea'

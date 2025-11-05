@@ -81,7 +81,7 @@ const ProfilePage = () => {
                         className={following ? 'unfollow-feat-btn' : 'follow-feat-btn'}
                         onClick={onFollowToggle}
                     >
-                    {following ? 'Unfollow' : 'Follow'}
+                        {following ? 'Unfollow' : 'Follow'}
                     </Button>
                 )}
 
@@ -91,12 +91,12 @@ const ProfilePage = () => {
 
                 <p>{user.username}'s profile</p>
                 <p>
-                <span className="mantel-id">Mantel ID:</span> {id}
+                    <span className="mantel-id">Mantel ID:</span> {id}
                 </p>
                 <p>
-                    {user.follow_data.followers_count} <span className="mantel-id">Followers</span> 
+                    {user.follow_data.followers_count} <span className="mantel-id">Followers</span>
                     <br />
-                    {user.follow_data.following_count} <span className="mantel-id">Following</span> 
+                    {user.follow_data.following_count} <span className="mantel-id">Following</span>
                 </p>
 
                 {/* Follower Stats */}
