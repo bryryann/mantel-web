@@ -10,6 +10,10 @@ export interface UserMetadata {
 
 export type UserProfile = User & UserMetadata;
 
+interface FetchUserResponse {
+    user: UserProfile;
+};
+
 interface FollowResponse {
     follower_id: string;
     followee_id: string;
@@ -21,10 +25,8 @@ interface IsFollowingResponse {
 
 type FollowType = 'followees' | 'followers';
 
-export const fetchUser = async (userID: string): Promise<UserProfile> => {
-    const res: { data: UserProfile } = await axios.get(`/api/users/${userID}`);
-
-    console.log(res.data);
+export const fetchUser = async (userID: string): Promise<FetchUserResponse> => {
+    const res: { data: FetchUserResponse } = await axios.get(`/api/users/${userID}`);
 
     return res.data;
 };
@@ -70,5 +72,5 @@ export const unfollowUser = async (token: string, userID: string, followeeID: st
         },
     };
 
-    const res = await axios.post(`/api/users/${userID}/unfollow/${followeeID}`, null, requestConfig);
+    await axios.post(`/api/users/${userID}/unfollow/${followeeID}`, null, requestConfig);
 }

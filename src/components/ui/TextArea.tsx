@@ -4,7 +4,7 @@ import './ui.css';
 interface TextAreaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
   name: string;
-  value: string;
+  value?: string;
   error?: string;
   className: string;
 }

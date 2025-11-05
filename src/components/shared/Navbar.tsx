@@ -1,5 +1,4 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/hooks/hooks';
 import { logoutUser as logoutUserThunk } from '@/features/auth/authThunks';
 import { selectUser } from '@/features/auth/authSelectors';

@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui';
-import { User } from '@/types';
+import { User } from '@/types/auth';
 import './ProfileDropdown.css';
 
 interface ProfileDropdownProps {
