@@ -1,3 +1,4 @@
+import Posts from './Posts/Posts';
 import UserFollowList from './UserFollowList/UserFollowList';
 
-export { UserFollowList };
+export { Posts, UserFollowList };

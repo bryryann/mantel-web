@@ -9,7 +9,9 @@
   flex: 1;
   padding: 40px 24px;
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
   box-sizing: border-box;
+  gap: 2rem;
 }

@@ -4,7 +4,7 @@ import { UserProfile, fetchUser, isFollowing, followUser, unfollowUser } from '@
 import { useAppSelector } from '@/hooks/hooks';
 import { selectAccessToken, selectUser } from '@/features/auth/authSelectors';
 import { ProfileLayout } from '@/layouts';
-import { UserFollowList } from '@/components/profile';
+import { Posts, UserFollowList } from '@/components/profile';
 import { Modal } from '@/components/shared';
 import { Button } from '@/components/ui';
 import Toast from '@/utils/toast';
@@ -124,6 +124,14 @@ const ProfilePage = () => {
                     </button>
                 </div>
             </div>
+
+            <Posts
+                userID={user.id}
+                username={user.username}
+                isOwnProfile={isOwnProfile}
+                defaultSort='newest'
+                pageSize={10}
+            />
 
             <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
                 <UserFollowList content={modalContent} userId={id!} />

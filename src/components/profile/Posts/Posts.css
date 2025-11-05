@@ -1,0 +1,118 @@
+.user-posts {
+    margin-top: 2.5rem;
+    max-width: 800px;
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 24px 32px 32px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+}
+
+.user-posts-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.5rem;
+}
+
+.user-posts-header h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #222;
+}
+
+.user-posts-header select {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 0.95rem;
+    background-color: #fafafa;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+}
+
+.user-posts-header select:hover {
+    border-color: #ccc;
+}
+
+.posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.post-card {
+    background-color: #fafafa;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 16px 20px;
+    transition: box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.post-card:hover {
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+    transform: translateY(-2px);
+}
+
+.post-card p {
+    margin: 0.5rem 0 0;
+    color: #444;
+    line-height: 1.5;
+    font-size: 0.95rem;
+}
+
+.post-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    color: #777;
+}
+
+.load-more-btn {
+    display: block;
+    margin: 1.5rem auto 0;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.load-more-btn:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-1px);
+}
+
+.load-more-btn:active {
+    background-color: #1e40af;
+}
+
+.user-posts .loading,
+.user-posts .end-message {
+    text-align: center;
+    color: #666;
+    margin-top: 1rem;
+    font-size: 0.95rem;
+}
+
+@media (max-width: 600px) {
+    .user-posts {
+        padding: 16px;
+    }
+
+    .post-card {
+        padding: 12px 14px;
+    }
+
+    .user-posts-header h3 {
+        font-size: 1.1rem;
+    }
+}
