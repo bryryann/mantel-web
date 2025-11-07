@@ -72,6 +72,39 @@
     color: #777;
 }
 
+.post-user {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.post-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #ddd;
+}
+
+.post-username {
+    font-weight: 600;
+    color: #111;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.post-username:hover {
+    color: #2563eb;
+    text-decoration: underline;
+}
+
+.post-date {
+    color: #777;
+    font-size: 0.85rem;
+}
+
+
 .load-more-btn {
     display: block;
     margin: 1.5rem auto 0;

@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { Post } from '@/types/posts';
-import './Posts.css';
 import { fetchPostsFromUser } from '@/services/postServices';
+import './Posts.css';
 
 interface PostsProps {
     userID: string;
@@ -48,6 +49,26 @@ const Posts: React.FC<PostsProps> = ({
             </div>
 
             <div className='posts-list'>
+                {posts.length > 0 ? (
+                    posts.map(post => (
+                        <div key={post.id} className='post-card'>
+                            <div className='post-meta'>
+                                <div className='post-user'>
+                                    <Link to={`/profile/${userID}`} className='post-username'>
+                                        @{username}
+                                    </Link>
+                                </div>
+                                <span className='post-date'>
+                                    {new Date(post.created_at).toLocaleString()}
+                                </span>
+                            </div>
+
+                            <p>{post.content}</p>
+                        </div>
+                    ))
+                ) : (
+                    <p className='end-message'>No posts yet.</p>
+                )}
             </div>
         </div>
     );
