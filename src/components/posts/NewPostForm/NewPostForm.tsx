@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { useAppDispatch, useAppSelector } from '@/hooks/hooks';
+import { useAppSelector } from '@/hooks/hooks';
 import { selectAccessToken } from '@/features/auth/authSelectors';
 import { Button, TextArea } from '@/components/ui';
 import { newPost } from '@/services/postServices';
@@ -11,7 +11,6 @@ interface FormData {
 }
 
 const NewPostForm = () => {
-    const dispatch = useAppDispatch();
     const token = useAppSelector(selectAccessToken);
 
     const {
