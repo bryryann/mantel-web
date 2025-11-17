@@ -13,7 +13,6 @@ import { ProfilePage } from '@/pages/profile';
 import { SettingsPage } from '@/pages/settings';
 import { selectIsAuthenticated } from '@/features/auth/authSelectors';
 
-
 import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
@@ -57,7 +56,7 @@ const App = () => {
           <Route
             path='/profile/:id'
             element={
-                <ProfilePage />
+              <ProfilePage />
             }
           ></Route>
 

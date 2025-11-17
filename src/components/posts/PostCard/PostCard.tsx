@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PostActions from '@/components/posts/PostActions/PostActions';
 import './PostCard.css';
 
 interface PostCardProps {
@@ -29,6 +30,8 @@ const PostCard: React.FC<PostCardProps> = ({
             </div>
 
             <p>{content}</p>
+
+            <PostActions />
         </div>
     )
 };
