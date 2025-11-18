@@ -56,6 +56,7 @@ const Posts: React.FC<PostsProps> = ({
                             key={post.id}
                             username={username}
                             userID={userID}
+                            postID={post.id}
                             content={post.content}
                             date={post.created_at}
                         />

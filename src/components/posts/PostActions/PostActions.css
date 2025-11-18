@@ -1,11 +1,32 @@
 .post-actions-container {
-    margin-top: 5px;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
 }
 
 .post-actions-like-btn {
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 24px;
-    color: #ff0000;
+    font-size: 22px;
+    color: #e63946;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease, transform 0.15s ease, color 0.2s ease;
+}
+
+.post-actions-like-btn:hover {
+    background-color: rgba(230, 57, 70, 0.12);
+    transform: scale(1.05);
+}
+
+.post-actions-like-btn.liked {
+    color: #d00000;
+}
+
+.post-actions-like-btn:active {
+    transform: scale(0.95);
 }

@@ -48,3 +48,8 @@ export const newPost = async (token: string, content: string): Promise<NewPostRe
     return res.data
 }
 
+export const countLikes = async (postID: number): Promise<number> => {
+    const res = await axios.get<{ likes_count: number }>(`/api/posts/${postID}/likes/count`);
+
+    return res.data.likes_count;
+}

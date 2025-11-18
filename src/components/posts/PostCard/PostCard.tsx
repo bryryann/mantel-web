@@ -6,6 +6,7 @@ import './PostCard.css';
 interface PostCardProps {
     username: string;
     userID: string;
+    postID: number;
     content: string;
     date: Date;
 };
@@ -13,6 +14,7 @@ interface PostCardProps {
 const PostCard: React.FC<PostCardProps> = ({
     username,
     userID,
+    postID,
     content,
     date
 }) => {
@@ -31,7 +33,7 @@ const PostCard: React.FC<PostCardProps> = ({
 
             <p>{content}</p>
 
-            <PostActions />
+            <PostActions postID={postID} />
         </div>
     )
 };
