@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
-import { countLikes } from '@/services/postServices';
+import { countLikes, hasUserLikedPost } from '@/services/postServices';
 import './PostActions.css';
+import { useAppSelector } from '@/hooks/hooks';
+import { selectUser } from '@/features/auth/authSelectors';
 
 interface PostActionsProps {
     postID: number;
@@ -10,12 +12,17 @@ interface PostActionsProps {
 const PostActions: React.FC<PostActionsProps> = ({
     postID
 }) => {
+    const user = useAppSelector(selectUser);
     const [isLiked, setIsLiked] = useState<boolean>(false);
     const [likes, setLikes] = useState<number>(0);
 
     useEffect(() => {
         const fetchPostData = async () => {
             const likesCount = await countLikes(postID);
+            if (user != null) {
+                const hasLiked = await hasUserLikedPost(user.id, postID);
+                setIsLiked(hasLiked);
+            }
 
             setLikes(likesCount);
         }
