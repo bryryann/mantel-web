@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
-import { countLikes, likePost, hasUserLikedPost } from '@/services/postActionsServices';
+import { countLikes, likePost, dislikePost, hasUserLikedPost } from '@/services/postActionsServices';
 import './PostActions.css';
 import { useAppSelector } from '@/hooks/hooks';
 import { selectAccessToken, selectUser } from '@/features/auth/authSelectors';
@@ -31,24 +31,36 @@ const PostActions: React.FC<PostActionsProps> = ({
         fetchPostData();
     }, [postID, user]);
 
-    const onLike = async () => {
-        if (!user || isLiked) return;
+    const toggleLike = async () => {
+        if (!user) return;
 
-        setIsLiked(true);
-        setLikes(prev => prev + 1);
-
-        try {
-            await likePost(token!, postID);
-        } catch (err) {
+        if (isLiked) {
             setIsLiked(false);
             setLikes(prev => prev - 1);
+
+            try {
+                await dislikePost(token!, postID);
+            } catch (err) {
+                setIsLiked(true);
+                setLikes(prev => prev + 1);
+            }
+        } else {
+            setIsLiked(true);
+            setLikes(prev => prev + 1);
+
+            try {
+                await likePost(token!, postID);
+            } catch (err) {
+                setIsLiked(false);
+                setLikes(prev => prev - 1);
+            }
         }
-    }
+    };
 
     return (
         <div className='post-actions-container'>
             <button
-                onClick={onLike}
+                onClick={toggleLike}
                 className={`post-actions-like-btn ${isLiked ? "liked" : ""}`}
             >
                 {isLiked ? <FaHeart /> : <FaRegHeart />}

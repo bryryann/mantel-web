@@ -31,6 +31,17 @@ export const likePost = async (token: string, postID: number): Promise<LikePostR
     return res.data;
 }
 
+export const dislikePost = async (token: string, postID: number): Promise<void> => {
+    const query = `/api/posts/${postID}/likes`;
+    const requestConfig = {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    };
+
+    await axios.delete(query, requestConfig);
+}
+
 export const hasUserLikedPost = async (userID: string, postID: number): Promise<boolean> => {
     const query = `/api/users/${userID}/liked/${postID}`;
     const res = await axios.get<{ has_liked: boolean }>(query);
