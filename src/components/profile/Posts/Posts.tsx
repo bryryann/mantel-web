@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useCallback, ChangeEvent } from 'react';
 import { Post } from '@/types/posts';
 import { PostCard } from '@/components/posts';
 import { fetchPostsFromUser } from '@/services/postServices';
@@ -22,23 +21,28 @@ const Posts: React.FC<PostsProps> = ({
 }) => {
     const [posts, setPosts] = useState<Post[]>([]);
     const [error, setError] = useState<string | null>();
+    const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest');
 
     const loadPosts = useCallback(async () => {
         if (!userID) return;
         try {
             setError(null);
 
-            const data = await fetchPostsFromUser(userID);
+            const data = await fetchPostsFromUser(userID, sortOrder);
             setPosts(data.posts);
         } catch (err: any) {
             console.error(err);
             setError(err.message || 'An unknown error occurred.');
         }
-    }, [userID]);
+    }, [userID, sortOrder]);
 
     useEffect(() => {
         loadPosts();
     }, [loadPosts]);
+
+    const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
+        setSortOrder(e.target.value as 'newest' | 'oldest');
+    }
 
     if (error) return <div className='error-msg'>Error: {error}</div>;
 
@@ -46,7 +50,14 @@ const Posts: React.FC<PostsProps> = ({
         <div className='user-posts'>
             <div className='user-posts-header'>
                 <h3>{isOwnProfile ? 'Your Posts' : `${username}'s Posts`}</h3>
-                <select >...</select>
+                <select
+                    className='posts-filter'
+                    value={sortOrder}
+                    onChange={handleSelectChange}
+                >
+                    <option value='newest'>Newest</option>
+                    <option value='oldest'>Oldest</option>
+                </select>
             </div>
 
             <div className='posts-list'>

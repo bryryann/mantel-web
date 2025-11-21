@@ -18,9 +18,9 @@ interface PostsResponse {
 
 export const fetchPostsFromUser = async (
     userID: string,
-    page: number = 1,
+    sort: 'newest' | 'oldest',
     pageSize: number = 10,
-    sort: string = 'newest'
+    page: number = 1,
 ): Promise<PostsResponse> => {
     const requestUrl = `/api/users/${userID}/posts?page=${page}&page_size=${pageSize}&sort=${sort}`;
 
