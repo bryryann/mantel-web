@@ -27,7 +27,7 @@ const Navbar = () => {
         <nav className='navbar-container'>
             <div>
                 <Link to='/' className='navbar-logo'>
-                    <h1>Mantel</h1>
+                    <h1>MANTEL</h1>
                 </Link>
             </div>
 
