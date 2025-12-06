@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 import { Button, Input } from '@/components/ui';
 import { useAppDispatch } from '@/hooks/hooks';
 import { login as loginUserThunk } from '@/features/auth/authThunks';
+import { exportError } from '@/utils/errors';
 import Toast from '@/utils/toast';
 import './LoginForm.css';
 
@@ -26,7 +27,15 @@ const LoginForm: React.FC = () => {
                 Toast.success('User logged in successfully.');
             })
             .catch((err: string) => {
-                Toast.error(`Login error: ${err}`);
+                const code = exportError(err);
+
+                switch (code) {
+                    case 401:
+                        Toast.error(`Incorrect username/password`);
+                        break;
+                    default:
+                        Toast.error(`Login error: ${err}`);
+                }
             });
     };
 
