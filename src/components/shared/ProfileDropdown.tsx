@@ -37,7 +37,6 @@ const ProfileDropdown: React.FC<ProfileDropdownProps> = ({ user, onLogout }) => 
             {isOpen && (
                 <div className="dropdown-menu">
                     <a href={`/profile/${user.id}`} className="dropdown-item">Profile</a>
-                    <a href="/settings" className="dropdown-item">Settings</a>
                     <Button
                         onClick={onLogout}
                         className="dropdown-item logout-button"
