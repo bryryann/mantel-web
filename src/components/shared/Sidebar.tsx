@@ -37,7 +37,7 @@ const Sidebar = ({ open, onClose }: SidebarProps) => {
                             </li>
 
                             <li>
-                                <Link to='/friends/requests' onClick={onClose}>
+                                <Link to='/friend-requests' onClick={onClose}>
                                     Friend Requests
                                 </Link>
                             </li>

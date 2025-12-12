@@ -9,7 +9,7 @@ import PrivateRoute from '@/components/routes/PrivateRoute';
 import { AuthPage } from '@/pages/auth';
 import { DashboardPage } from '@/pages/dashboard';
 import { NotFound } from '@/pages/errors';
-import { ProfilePage } from '@/pages/profile';
+import { FriendRequestsPage, ProfilePage } from '@/pages/profile';
 import { SettingsPage } from '@/pages/settings';
 import { selectIsAuthenticated } from '@/features/auth/authSelectors';
 
@@ -48,6 +48,15 @@ const App = () => {
             element={
               <PrivateRoute>
                 <SettingsPage />
+              </PrivateRoute>
+            }
+          ></Route>
+
+          <Route
+            path='/friend-requests'
+            element={
+              <PrivateRoute>
+                <FriendRequestsPage />
               </PrivateRoute>
             }
           ></Route>
