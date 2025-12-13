@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { UserProfile, fetchUser, isFollowing, followUser, unfollowUser } from '@/services/userServices';
+import { FriendshipStatus, getFriendshipStatus } from '@/services/friendsServices';
 import { useAppSelector } from '@/hooks/hooks';
 import { selectAccessToken, selectUser } from '@/features/auth/authSelectors';
 import { ProfileLayout } from '@/layouts';
@@ -16,6 +17,7 @@ const ProfilePage = () => {
     const [user, setUser] = useState<UserProfile | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [following, setFollowing] = useState<boolean | null>(null);
+    const [friendshipStatus, setFriendshipStatus] = useState<FriendshipStatus>('none');
     const [modalContent, setModalContent] = useState<ModalContent>('followers');
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -35,9 +37,13 @@ const ProfilePage = () => {
 
             if (currentUser && data.user.id !== currentUser?.id) {
                 const followStatus = await isFollowing(currentUser.id, data.user.id);
+                const friendStatus = await getFriendshipStatus(currentUser.id, data.user.id);
+
                 setFollowing(followStatus.is_following);
+                setFriendshipStatus(friendStatus);
             } else {
                 setFollowing(null);
+                setFriendshipStatus('none');
             }
         } catch (err: any) {
             console.error(err);
@@ -70,23 +76,60 @@ const ProfilePage = () => {
         }
     };
 
+    const onFriendshipToggle = async () => {
+        // yet to be implemented
+    }
+
     if (error) return <div className="error-msg">Error: {error}</div>;
     if (!user) return <div className="loading-msg">Loading...</div>;
 
     return (
         <ProfileLayout>
             <div className="profile-card">
-                {currentUser && !isOwnProfile && following !== null && (
-                    <Button
-                        className={following ? 'unfollow-feat-btn' : 'follow-feat-btn'}
-                        onClick={onFollowToggle}
-                    >
-                        {following ? 'Unfollow' : 'Follow'}
-                    </Button>
-                )}
+                {currentUser && (
+                    <div className="profile-action-buttons">
+                        {!isOwnProfile && (
+                            <>
+                                {following !== null && (
+                                    <Button
+                                        className={following ? 'unfollow-feat-btn' : 'follow-feat-btn'}
+                                        onClick={onFollowToggle}
+                                    >
+                                        {following ? 'Unfollow' : 'Follow'}
+                                    </Button>
+                                )}
 
-                {isOwnProfile && currentUser && (
-                    <Button className="edit-profile-btn">Edit Profile</Button>
+                                {friendshipStatus && (
+                                    <Button
+                                        className={`friendship-btn ${friendshipStatus}`}
+                                        onClick={onFriendshipToggle}
+                                        disabled={friendshipStatus === 'blocked'}
+                                    >
+                                        {(() => {
+                                            switch (friendshipStatus) {
+                                                case 'none':
+                                                    return 'Add Friend';
+                                                case 'pending':
+                                                    return 'Cancel Request';
+                                                case 'accepted':
+                                                    return 'Unfriend';
+                                                case 'blocked':
+                                                    return 'Blocked';
+                                                default:
+                                                    return 'Add Friend';
+                                            }
+                                        })()}
+                                    </Button>
+                                )}
+                            </>
+                        )}
+
+                        {isOwnProfile && (
+                            <Button className="edit-profile-btn">
+                                Edit Profile
+                            </Button>
+                        )}
+                    </div>
                 )}
 
                 <p>{user.username}'s profile</p>

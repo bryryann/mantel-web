@@ -1,4 +1,5 @@
 .profile-card {
+    position: relative;
     background-color: #fff;
     padding: 24px 32px 40px;
     border: 1px solid #ddd;
@@ -6,7 +7,158 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     max-width: 800px;
     width: 100%;
-    position: relative;
+}
+
+.profile-card .profile-action-buttons {
+    position: absolute;
+    top: 24px;
+    right: 32px;
+    display: flex;
+    gap: 8px;
+    align-items: flex-end;
+    z-index: 1;
+}
+
+.profile-card .profile-action-buttons .follow-feat-btn,
+.profile-card .profile-action-buttons .unfollow-feat-btn,
+.profile-card .profile-action-buttons .friendship-btn,
+.profile-card .profile-action-buttons .edit-profile-btn {
+    margin-top: 0;
+    width: auto;
+}
+
+.follow-feat-btn,
+.unfollow-feat-btn,
+.friendship-btn {
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    margin-top: 16px;
+    width: 150px;
+    text-align: center;
+}
+
+.follow-feat-btn {
+    background-color: #2563eb;
+    border: 1px solid transparent;
+    color: white;
+}
+
+.follow-feat-btn:hover {
+    background-color: #1d4ed8;
+}
+
+.follow-feat-btn:active {
+    background-color: #1e40af;
+}
+
+.follow-feat-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.4);
+}
+
+.unfollow-feat-btn {
+    background-color: #ef4444;
+    border: 1px solid transparent;
+    color: white;
+}
+
+.unfollow-feat-btn:hover {
+    background-color: #dc2626;
+}
+
+.unfollow-feat-btn:active {
+    background-color: #b91c1c;
+}
+
+.unfollow-feat-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.4);
+}
+
+.friendship-btn {
+    background-color: #2563eb;
+    color: white;
+    border: 1px solid transparent;
+}
+
+.friendship-btn:hover {
+    background-color: #1d4ed8;
+}
+
+.friendship-btn:active {
+    background-color: #1e40af;
+}
+
+.friendship-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.4);
+}
+
+.friendship-btn.none {
+    background-color: #2563eb;
+}
+
+.friendship-btn.pending {
+    background-color: #fbbf24;
+}
+
+.friendship-btn.accepted {
+    background-color: #10b981;
+}
+
+.friendship-btn.blocked {
+    background-color: #dc2626;
+    cursor: not-allowed;
+}
+
+.friendship-btn.pending:hover,
+.friendship-btn.accepted:hover {
+    background-color: #d97706;
+}
+
+.friendship-btn.accepted:active {
+    background-color: #065f46;
+}
+
+.friendship-btn.blocked {
+    cursor: not-allowed;
+}
+
+.friendship-btn.blocked:hover,
+.friendship-btn.blocked:active {
+    background-color: #dc2626;
+}
+
+.edit-profile-btn {
+    background-color: transparent;
+    border: 1px solid #ccc;
+    color: #333;
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    margin-top: 16px;
+}
+
+.edit-profile-btn:hover {
+    background-color: #f9fafb;
+    border-color: #aaa;
+}
+
+.edit-profile-btn:active {
+    background-color: #f3f4f6;
+}
+
+.edit-profile-btn:focus {
+    outline: none;
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.3);
 }
 
 .profile-card .follow-stats {
@@ -76,95 +228,6 @@
     margin-top: 2px;
 }
 
-.follow-feat-btn {
-    background-color: #2563eb; 
-    border: 1px solid transparent;
-    color: white;
-    padding: 8px 18px;
-    border-radius: 6px;
-    font-size: 0.95rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.2s ease, box-shadow 0.2s ease;
-    margin-top: 16px;
-}
-
-.follow-feat-btn:hover {
-    background-color: #1d4ed8;
-}
-
-.follow-feat-btn:active {
-    background-color: #1e40af; 
-}
-
-.follow-feat-btn:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.4);
-}
-
-.unfollow-feat-btn {
-    background-color: #ef4444;
-    border: 1px solid transparent;
-    color: white;
-    padding: 8px 18px;
-    border-radius: 6px;
-    font-size: 0.95rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.2s ease, box-shadow 0.2s ease;
-    margin-top: 16px;
-}
-
-.unfollow-feat-btn:hover {
-    background-color: #dc2626;
-}
-
-.unfollow-feat-btn:active {
-    background-color: #b91c1c;
-}
-
-.unfollow-feat-btn:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.4);
-}
-
-.edit-profile-btn {
-    background-color: transparent;
-    border: 1px solid #ccc;
-    color: #333;
-    padding: 8px 18px;
-    border-radius: 6px;
-    font-size: 0.95rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.2s ease, border-color 0.2s ease;
-    margin-top: 16px;
-}
-
-.edit-profile-btn:hover {
-    background-color: #f9fafb;
-    border-color: #aaa;
-}
-
-.edit-profile-btn:active {
-    background-color: #f3f4f6;
-}
-
-.edit-profile-btn:focus {
-    outline: none;
-    border-color: #4f46e5;
-    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.3);
-}
-
-.follow-feat-btn,
-.edit-profile-btn,
-.unfollow-feat-btn {
-    position: absolute;
-    top: 24px;
-    right: 32px;
-    z-index: 1;
-}
-
 .loading,
 .error {
     text-align: center;
@@ -174,9 +237,8 @@
 }
 
 .error {
-    color: #dc2626; 
+    color: #dc2626;
 }
-
 
 @media (max-width: 600px) {
     .follow-stats {
@@ -189,5 +251,11 @@
 
     .follow-stat-item .label {
         font-size: 0.85rem;
+    }
+
+    .profile-card .profile-action-buttons {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
     }
 }
