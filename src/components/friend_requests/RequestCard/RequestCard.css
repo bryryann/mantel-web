@@ -1,0 +1,80 @@
+.request-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    margin: 8px auto 12px;
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    max-width: 680px;
+    width: 100%;
+}
+
+.request-card-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.request-card-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.request-card-username {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #111827;
+}
+
+.request-card-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.request-card-btn {
+    padding: 6px 14px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+
+    transition: background-color 0.15s ease, transform 0.05s ease;
+}
+
+.request-card-btn:active {
+    transform: scale(0.97);
+}
+
+.request-card-btn--accept {
+    background-color: #22c55e;
+    color: #ffffff;
+}
+
+.request-card-btn--accept:hover {
+    background-color: #16a34a;
+}
+
+.request-card-btn--decline {
+    background-color: #ef4444;
+    color: #ffffff;
+}
+
+.request-card-btn--decline:hover {
+    background-color: #dc2626;
+}
+
+.request-card--loading {
+    padding: 16px 20px;
+    background-color: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    color: #6b7280;
+    max-width: 480px;
+    width: 90%;
+    margin: 8px auto 12px;
+}

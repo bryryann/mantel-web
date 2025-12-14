@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { UserProfile, fetchUser, isFollowing, followUser, unfollowUser } from '@/services/userServices';
-import { FriendshipStatus, getFriendshipStatus } from '@/services/friendsServices';
+import { FriendshipStatus, getFriendshipStatus, sendFriendRequest } from '@/services/friendsServices';
 import { useAppSelector } from '@/hooks/hooks';
 import { selectAccessToken, selectUser } from '@/features/auth/authSelectors';
 import { ProfileLayout } from '@/layouts';
@@ -77,7 +77,22 @@ const ProfilePage = () => {
     };
 
     const onFriendshipToggle = async () => {
-        // yet to be implemented
+        if (!accessToken || !id) return;
+
+        const previousState = friendshipStatus;
+
+        try {
+            switch (friendshipStatus) {
+                case 'none':
+                    const res = await sendFriendRequest(accessToken, id)
+                    setFriendshipStatus(res.status);
+            }
+        } catch (err: any) {
+            console.error(err);
+            setFriendshipStatus(previousState);
+            Toast.error(err.message || 'An unknown error occurred.');
+
+        }
     }
 
     if (error) return <div className="error-msg">Error: {error}</div>;

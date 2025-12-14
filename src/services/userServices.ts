@@ -26,7 +26,7 @@ interface IsFollowingResponse {
 type FollowType = 'followees' | 'followers';
 
 export const fetchUser = async (userID: string): Promise<FetchUserResponse> => {
-    const res: { data: FetchUserResponse } = await axios.get(`/api/users/${userID}`);
+    const res = await axios.get<FetchUserResponse>(`/api/users/${userID}`);
 
     return res.data;
 };
