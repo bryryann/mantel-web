@@ -115,26 +115,30 @@ const ProfilePage = () => {
                                 )}
 
                                 {friendshipStatus && (
-                                    <Button
-                                        className={`friendship-btn ${friendshipStatus}`}
-                                        onClick={onFriendshipToggle}
-                                        disabled={friendshipStatus === 'blocked'}
-                                    >
-                                        {(() => {
-                                            switch (friendshipStatus) {
-                                                case 'none':
-                                                    return 'Add Friend';
-                                                case 'pending':
-                                                    return 'Cancel Request';
-                                                case 'accepted':
-                                                    return 'Unfriend';
-                                                case 'blocked':
-                                                    return 'Blocked';
-                                                default:
-                                                    return 'Add Friend';
-                                            }
-                                        })()}
-                                    </Button>
+                                    friendshipStatus === 'pending' ? (
+                                        <span className="friendship-pending-text">
+                                            Friendship request sent
+                                        </span>
+                                    ) : (
+                                        <Button
+                                            className={`friendship-btn ${friendshipStatus}`}
+                                            onClick={onFriendshipToggle}
+                                            disabled={friendshipStatus === 'blocked'}
+                                        >
+                                            {(() => {
+                                                switch (friendshipStatus) {
+                                                    case 'none':
+                                                        return 'Add Friend';
+                                                    case 'accepted':
+                                                        return 'Unfriend';
+                                                    case 'blocked':
+                                                        return 'Blocked';
+                                                    default:
+                                                        return 'Add Friend';
+                                                }
+                                            })()}
+                                        </Button>
+                                    )
                                 )}
                             </>
                         )}

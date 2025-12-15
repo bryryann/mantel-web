@@ -133,6 +133,21 @@
     background-color: #dc2626;
 }
 
+.friendship-pending-text {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    padding: 0 18px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    background-color: #fef3c7;
+    color: #92400e;
+    border: 1px solid #fbbf24;
+    white-space: nowrap;
+}
+
 .edit-profile-btn {
     background-color: transparent;
     border: 1px solid #ccc;
@@ -159,6 +174,11 @@
     outline: none;
     border-color: #4f46e5;
     box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.3);
+}
+
+.profile-card .profile-action-buttons .friendship-pending-text {
+    margin-top: 0;
+    width: auto;
 }
 
 .profile-card .follow-stats {
