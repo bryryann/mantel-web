@@ -30,6 +30,32 @@ export const fetchFriendRequests = async (token: string, queryParam: FetchQuery)
     return res.data.requests;
 }
 
+export const rejectFriendRequest = async (token: string, requestID: string): Promise<number> => {
+    const query = `/api/friend-requests/${requestID}/reject`;
+    const requestConfig = {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    };
+
+    const res = await axios.delete<{ status: number }>(query, requestConfig)
+
+    return res.data.status;
+}
+
+export const cancelFriendRequest = async (token: string, requestID: string): Promise<number> => {
+    const query = `/api/friend-requests/${requestID}/cancel`;
+    const requestConfig = {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    };
+
+    const res = await axios.delete<{ status: number }>(query, requestConfig)
+
+    return res.data.status;
+}
+
 /*
 export const acceptFriendRequest = async (token: string, requestID: string): Promise<any> => {
     const query = `/api/friend-requests/${requestID}`;
