@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { fetchUser, UserProfile } from '@/services/userServices';
 import { useAppSelector } from '@/hooks/hooks';
 import { selectAccessToken } from '@/features/auth/authSelectors';
-import { rejectFriendRequest } from '@/services/friendsServices';
+import { acceptFriendRequest, rejectFriendRequest } from '@/services/friendsServices';
 import Toast from '@/utils/toast';
 import './RequestCard.css';
 
@@ -36,7 +36,19 @@ const RequestCard: React.FC<RequestCardProps> = ({ requestID, targetID }) => {
             }
         } catch (err: any) {
             console.error(err);
+            Toast.error(err.message || 'An unknown error occurred.');
+        }
+    }
 
+    const onAccept = async () => {
+        if (!accessToken || !requestID) return;
+
+        try {
+            const res = await acceptFriendRequest(accessToken, requestID);
+
+            Toast.success("You are now friends!");
+        } catch (err: any) {
+            console.error(err);
             Toast.error(err.message || 'An unknown error occurred.');
         }
     }
@@ -63,6 +75,7 @@ const RequestCard: React.FC<RequestCardProps> = ({ requestID, targetID }) => {
                 <button
                     className="request-card-btn request-card-btn--accept"
                     type="button"
+                    onClick={onAccept}
                 >
                     Accept
                 </button>

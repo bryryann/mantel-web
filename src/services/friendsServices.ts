@@ -56,8 +56,7 @@ export const cancelFriendRequest = async (token: string, requestID: string): Pro
     return res.data.status;
 }
 
-/*
-export const acceptFriendRequest = async (token: string, requestID: string): Promise<any> => {
+export const acceptFriendRequest = async (token: string, requestID: string): Promise<FriendRequest> => {
     const query = `/api/friend-requests/${requestID}`;
     const requestBody = { status: 'accepted' };
     const requestConfig = {
@@ -67,11 +66,12 @@ export const acceptFriendRequest = async (token: string, requestID: string): Pro
         },
     };
 
-    const res = await axios.patch(query, requestBody, requestConfig);
+    const res = await axios.put<{ friendship: FriendRequest }>(query, requestBody, requestConfig);
 
-    console.log(res);
+    console.log(res.data);
+
+    return res.data.friendship;
 }
-*/
 
 export const getFriendshipStatus = async (userID: string, friendID: string): Promise<FriendshipStatus> => {
     const query = `/api/users/${userID}/friends/${friendID}`;
