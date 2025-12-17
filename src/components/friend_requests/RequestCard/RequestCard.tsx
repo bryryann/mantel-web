@@ -13,6 +13,7 @@ interface RequestCardProps {
 
 const RequestCard: React.FC<RequestCardProps> = ({ requestID, targetID }) => {
     const [target, setTarget] = useState<UserProfile | null>(null);
+    const [accepted, setAccepted] = useState<boolean | null>(null);
 
     const accessToken = useAppSelector(selectAccessToken);
 
@@ -32,26 +33,27 @@ const RequestCard: React.FC<RequestCardProps> = ({ requestID, targetID }) => {
             const res = await rejectFriendRequest(accessToken, requestID);
 
             if (res === 1) {
+                setAccepted(false);
                 Toast.success('Successfully rejected friendship request.');
             }
         } catch (err: any) {
             console.error(err);
             Toast.error(err.message || 'An unknown error occurred.');
         }
-    }
+    };
 
     const onAccept = async () => {
         if (!accessToken || !requestID) return;
 
         try {
-            const res = await acceptFriendRequest(accessToken, requestID);
-
-            Toast.success("You are now friends!");
+            await acceptFriendRequest(accessToken, requestID);
+            setAccepted(true);
+            Toast.success('You are now friends!');
         } catch (err: any) {
             console.error(err);
             Toast.error(err.message || 'An unknown error occurred.');
         }
-    }
+    };
 
     if (!target) {
         return (
@@ -72,21 +74,37 @@ const RequestCard: React.FC<RequestCardProps> = ({ requestID, targetID }) => {
             </div>
 
             <div className="request-card-actions">
-                <button
-                    className="request-card-btn request-card-btn--accept"
-                    type="button"
-                    onClick={onAccept}
-                >
-                    Accept
-                </button>
+                {accepted === null && (
+                    <>
+                        <button
+                            className="request-card-btn request-card-btn--accept"
+                            type="button"
+                            onClick={onAccept}
+                        >
+                            Accept
+                        </button>
 
-                <button
-                    className="request-card-btn request-card-btn--decline"
-                    type="button"
-                    onClick={onReject}
-                >
-                    Decline
-                </button>
+                        <button
+                            className="request-card-btn request-card-btn--decline"
+                            type="button"
+                            onClick={onReject}
+                        >
+                            Decline
+                        </button>
+                    </>
+                )}
+
+                {accepted === true && (
+                    <p className="request-card-status request-card-status--accepted">
+                        You are now friends
+                    </p>
+                )}
+
+                {accepted === false && (
+                    <p className="request-card-status request-card-status--rejected">
+                        Request rejected
+                    </p>
+                )}
             </div>
         </article>
     );

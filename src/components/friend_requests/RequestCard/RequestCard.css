@@ -33,6 +33,8 @@
 .request-card-actions {
     display: flex;
     gap: 10px;
+    align-items: center;
+    min-height: 32px;
 }
 
 .request-card-btn {
@@ -42,7 +44,6 @@
     border-radius: 6px;
     border: none;
     cursor: pointer;
-
     transition: background-color 0.15s ease, transform 0.05s ease;
 }
 
@@ -77,4 +78,30 @@
     max-width: 480px;
     width: 90%;
     margin: 8px auto 12px;
+}
+
+.request-card-status {
+    font-size: 14px;
+    font-weight: 500;
+    animation: fadeIn 0.25s ease-in-out;
+}
+
+.request-card-status--accepted {
+    color: #16a34a;
+}
+
+.request-card-status--rejected {
+    color: #dc2626;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(2px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
