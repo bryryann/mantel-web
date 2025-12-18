@@ -1,13 +1,14 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { UserProfile, fetchUser, isFollowing, followUser, unfollowUser } from '@/services/userServices';
-import { FriendshipStatus, getFriendshipStatus, sendFriendRequest } from '@/services/friendsServices';
+import { FriendshipStatus, getFriendship, getFriendshipStatus, sendFriendRequest, unfriend } from '@/services/friendsServices';
 import { useAppSelector } from '@/hooks/hooks';
 import { selectAccessToken, selectUser } from '@/features/auth/authSelectors';
 import { ProfileLayout } from '@/layouts';
 import { Posts, UserFollowList } from '@/components/profile';
 import { Modal } from '@/components/shared';
 import { Button } from '@/components/ui';
+import { FriendRequest } from '@/types';
 import Toast from '@/utils/toast';
 import './ProfilePage.css';
 
@@ -18,6 +19,7 @@ const ProfilePage = () => {
     const [error, setError] = useState<string | null>(null);
     const [following, setFollowing] = useState<boolean | null>(null);
     const [friendshipStatus, setFriendshipStatus] = useState<FriendshipStatus>('none');
+    const [friendshipObject, setFriendshipObject] = useState<FriendRequest | null>(null);
     const [modalContent, setModalContent] = useState<ModalContent>('followers');
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -35,15 +37,18 @@ const ProfilePage = () => {
             const data = await fetchUser(id);
             setUser(data.user);
 
-            if (currentUser && data.user.id !== currentUser?.id) {
+            if (currentUser && !isOwnProfile) {
                 const followStatus = await isFollowing(currentUser.id, data.user.id);
                 const friendStatus = await getFriendshipStatus(currentUser.id, data.user.id);
+                const friendship = await getFriendship(currentUser.id, data.user.id);
 
                 setFollowing(followStatus.is_following);
                 setFriendshipStatus(friendStatus);
+                setFriendshipObject(friendship);
             } else {
                 setFollowing(null);
                 setFriendshipStatus('none');
+                setFriendshipObject(null);
             }
         } catch (err: any) {
             console.error(err);
@@ -83,17 +88,32 @@ const ProfilePage = () => {
 
         try {
             switch (friendshipStatus) {
-                case 'none':
-                    const res = await sendFriendRequest(accessToken, id)
+                case 'none': {
+                    const res = await sendFriendRequest(accessToken, id);
                     setFriendshipStatus(res.status);
+
+                    break;
+                }
+                case 'accepted': {
+                    if (!friendshipObject) return;
+
+                    const confirmed = window.confirm('Are you sure you want to unfriend this user?');
+                    if (!confirmed) return;
+
+                    const _res = await unfriend(accessToken, friendshipObject.id);
+                    setFriendshipStatus('none');
+
+                    break;
+                }
+                default:
+                    break;
             }
         } catch (err: any) {
             console.error(err);
             setFriendshipStatus(previousState);
             Toast.error(err.message || 'An unknown error occurred.');
-
         }
-    }
+    };
 
     if (error) return <div className="error-msg">Error: {error}</div>;
     if (!user) return <div className="loading-msg">Loading...</div>;

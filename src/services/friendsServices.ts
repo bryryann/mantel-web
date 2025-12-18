@@ -30,6 +30,19 @@ export const fetchFriendRequests = async (token: string, queryParam: FetchQuery)
     return res.data.requests;
 }
 
+export const unfriend = async (token: string, requestID: string): Promise<number> => {
+    const query = `/api/friend-requests/${requestID}/unfriend`;
+    const requestConfig = {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    };
+
+    const res = await axios.delete<{ status: number }>(query, requestConfig);
+
+    return res.data.status;
+}
+
 export const rejectFriendRequest = async (token: string, requestID: string): Promise<number> => {
     const query = `/api/friend-requests/${requestID}/reject`;
     const requestConfig = {
@@ -74,11 +87,19 @@ export const acceptFriendRequest = async (token: string, requestID: string): Pro
 }
 
 export const getFriendshipStatus = async (userID: string, friendID: string): Promise<FriendshipStatus> => {
-    const query = `/api/users/${userID}/friends/${friendID}`;
+    const query = `/api/users/${userID}/friends/${friendID}/status`;
 
     const res = await axios.get<{ friendship_status: FriendshipStatus }>(query);
 
     return res.data.friendship_status;
+}
+
+export const getFriendship = async (userID: string, friendID: string): Promise<FriendRequest> => {
+    const query = `/api/users/${userID}/friends/${friendID}`;
+
+    const res = await axios.get<{ friendship: FriendRequest }>(query);
+
+    return res.data.friendship;
 }
 
 export const sendFriendRequest = async (token: string, receiverID: string): Promise<SentRequestResponse> => {
