@@ -2,13 +2,18 @@ import { User } from '@/types/auth';
 import axios from 'axios';
 
 export interface UserMetadata {
-    follow_data: {
+    follows: {
         followers_count: number;
         following_count: number;
-    }
-}
+    },
+    friends: number,
+};
 
-export type UserProfile = User & UserMetadata;
+export interface UserProfile {
+    id: string;
+    username: string;
+    data: UserMetadata
+}
 
 interface FetchUserResponse {
     user: UserProfile;

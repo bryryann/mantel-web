@@ -3,9 +3,10 @@ import { useEffect, useState } from 'react';
 import { fetchFollowData } from '@/services/userServices';
 import { User } from '@/types/auth';
 import './UserFollowList.css';
+import { listFriends } from '@/services/friendsServices';
 
 type UserFollowListProps = {
-    content: 'followees' | 'followers';
+    content: 'followees' | 'followers' | 'friends';
     userId: string;
 };
 
@@ -22,6 +23,10 @@ const UserFollowList: React.FC<UserFollowListProps> = ({ content, userId }) => {
             else if (content === 'followees') {
                 const followees = await fetchFollowData(userId, content);
                 setUserList(followees);
+            }
+            else if (content === 'friends') {
+                const friends = await listFriends(userId);
+                setUserList(friends);
             }
         }
 

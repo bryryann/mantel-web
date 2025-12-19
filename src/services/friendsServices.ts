@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { FriendRequest } from '@/types';
 import { PaginationMetadata } from '@/types/json';
+import { User } from '@/types/auth';
 
 interface FriendRequestsResponse {
     meta: PaginationMetadata;
@@ -100,6 +101,13 @@ export const getFriendship = async (userID: string, friendID: string): Promise<F
     const res = await axios.get<{ friendship: FriendRequest }>(query);
 
     return res.data.friendship;
+}
+
+export const listFriends = async (userID: string): Promise<User[]> => {
+    const requestURL = `/api/users/${userID}/friends`;
+    const res = await axios.get<{ friends: User[] }>(requestURL);
+
+    return res.data.friends;
 }
 
 export const sendFriendRequest = async (token: string, receiverID: string): Promise<SentRequestResponse> => {

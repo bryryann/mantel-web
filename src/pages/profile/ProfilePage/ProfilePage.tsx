@@ -12,7 +12,7 @@ import { FriendRequest } from '@/types';
 import Toast from '@/utils/toast';
 import './ProfilePage.css';
 
-type ModalContent = 'followers' | 'followees';
+type ModalContent = 'followers' | 'followees' | 'friends';
 
 const ProfilePage = () => {
     const [user, setUser] = useState<UserProfile | null>(null);
@@ -176,32 +176,45 @@ const ProfilePage = () => {
                     <span className="mantel-id">Mantel ID:</span> {id}
                 </p>
                 <p>
-                    {user.follow_data.followers_count} <span className="mantel-id">Followers</span>
+                    {user.data.follows.followers_count} <span className="mantel-id">Followers</span>
                     <br />
-                    {user.follow_data.following_count} <span className="mantel-id">Following</span>
+                    {user.data.follows.following_count} <span className="mantel-id">Following</span>
+                    <br />
+                    {user.data.friends} <span className="mantel-id">Friends</span>
                 </p>
 
-                {/* Follower Stats */}
-                <div className="follow-stats">
+                {/* User Stats */}
+                <div className="user-stats">
                     <button
-                        className="follow-stat-item"
+                        className="user-stat-item"
+                        onClick={() => {
+                            setModalContent('friends');
+                            setIsModalOpen(true);
+                        }}
+                    >
+                        <span className="count">{user.data.friends}</span>
+                        <span className="label">Friends</span>
+                    </button>
+
+                    <button
+                        className="user-stat-item"
                         onClick={() => {
                             setModalContent('followers');
                             setIsModalOpen(true);
                         }}
                     >
-                        <span className="count">{user.follow_data.followers_count}</span>
+                        <span className="count">{user.data.follows.followers_count}</span>
                         <span className="label">Followers</span>
                     </button>
 
                     <button
-                        className="follow-stat-item"
+                        className="user-stat-item"
                         onClick={() => {
                             setModalContent('followees');
                             setIsModalOpen(true);
                         }}
                     >
-                        <span className="count">{user.follow_data.following_count}</span>
+                        <span className="count">{user.data.follows.following_count}</span>
                         <span className="label">Following</span>
                     </button>
                 </div>
