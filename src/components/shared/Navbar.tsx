@@ -1,19 +1,35 @@
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@/hooks/hooks';
 import { logoutUser as logoutUserThunk } from '@/features/auth/authThunks';
-import { selectUser } from '@/features/auth/authSelectors';
+import { selectAccessToken, selectUser } from '@/features/auth/authSelectors';
 import { ProfileDropdown } from '@/components/shared';
 import { Button } from '@/components/ui';
 import Toast from '@/utils/toast';
-import { useState } from 'react';
+import { countReceivedRequests } from '@/services/friendsServices';
 import Sidebar from './Sidebar';
 import './Navbar.css';
 
 const Navbar = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const user = useAppSelector(selectUser);
+    const [pendingRequests, setPendingRequests] = useState<number>(0);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+    const user = useAppSelector(selectUser);
+    const token = useAppSelector(selectAccessToken);
+
+    useEffect(() => {
+        if (!token) return;
+
+        const fetchRequests = async () => {
+            const res = await countReceivedRequests(token);
+
+            setPendingRequests(res);
+        }
+
+        fetchRequests();
+    }, [token]);
 
     const onLogout = () => {
         dispatch(logoutUserThunk())
@@ -33,10 +49,16 @@ const Navbar = () => {
         <>
             <nav className='navbar-container'>
                 <button
-                    className='hamburger-btn'
+                    className="hamburger-btn"
                     onClick={toggleSidebar}
+                    aria-label="Open sidebar"
                 >
                     ☰
+                    {pendingRequests > 0 && (
+                        <span className="sidebar-badge">
+                            {pendingRequests > 99 ? '99+' : pendingRequests}
+                        </span>
+                    )}
                 </button>
 
                 <div>
@@ -56,7 +78,11 @@ const Navbar = () => {
                 </div>
             </nav>
 
-            <Sidebar open={isSidebarOpen} onClose={toggleSidebar} />
+            <Sidebar
+                open={isSidebarOpen}
+                pendingRequests={pendingRequests}
+                onClose={toggleSidebar}
+            />
         </>
     );
 };

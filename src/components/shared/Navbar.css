@@ -142,4 +142,22 @@
     font-size: 26px;
     cursor: pointer;
     margin-right: 15px;
+    position: relative;
+}
+
+.sidebar-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    border-radius: 999px;
+    background-color: #e53935;
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

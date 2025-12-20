@@ -24,7 +24,23 @@
     box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
     transition: left 0.3s ease;
     z-index: 200;
-    /* 🔥 keeps it ABOVE navbar */
+}
+
+.sidebar-link-with-badge a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    font-weight: 500;
+}
+
+.sidebar-link-with-badge .sidebar-badge {
+    position: static;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    font-size: 12px;
+    background-color: #e53935;
 }
 
 .sidebar.open {

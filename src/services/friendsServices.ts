@@ -31,6 +31,19 @@ export const fetchFriendRequests = async (token: string, queryParam: FetchQuery)
     return res.data.requests;
 }
 
+export const countReceivedRequests = async (token: string): Promise<number> => {
+    const query = `/api/friend-requests?by=received`;
+    const requestConfig = {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    };
+
+    const res = await axios.get<FriendRequestsResponse>(query, requestConfig);
+
+    return res.data.requests ? res.data.requests.length : 0;
+}
+
 export const unfriend = async (token: string, requestID: string): Promise<number> => {
     const query = `/api/friend-requests/${requestID}/unfriend`;
     const requestConfig = {

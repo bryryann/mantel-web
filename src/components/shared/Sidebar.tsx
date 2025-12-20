@@ -5,10 +5,11 @@ import './Sidebar.css';
 
 interface SidebarProps {
     open: boolean;
+    pendingRequests: number;
     onClose: () => void;
 }
 
-const Sidebar = ({ open, onClose }: SidebarProps) => {
+const Sidebar = ({ open, pendingRequests, onClose }: SidebarProps) => {
     const user = useAppSelector(selectUser);
 
     return (
@@ -36,9 +37,14 @@ const Sidebar = ({ open, onClose }: SidebarProps) => {
                                 </Link>
                             </li>
 
-                            <li>
-                                <Link to='/friend-requests' onClick={onClose}>
+                            <li className="sidebar-link-with-badge">
+                                <Link to="/friend-requests" onClick={onClose}>
                                     Friend Requests
+                                    {pendingRequests > 0 && (
+                                        <span className="sidebar-badge">
+                                            {pendingRequests > 99 ? '99+' : pendingRequests}
+                                        </span>
+                                    )}
                                 </Link>
                             </li>
 
