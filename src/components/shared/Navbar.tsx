@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@/hooks/hooks';
 import { logoutUser as logoutUserThunk } from '@/features/auth/authThunks';
 import { selectAccessToken, selectUser } from '@/features/auth/authSelectors';
@@ -7,6 +7,7 @@ import { ProfileDropdown } from '@/components/shared';
 import { Button } from '@/components/ui';
 import Toast from '@/utils/toast';
 import { countReceivedRequests } from '@/services/friendsServices';
+import { Input } from '@/components/ui';
 import Sidebar from './Sidebar';
 import './Navbar.css';
 
@@ -14,7 +15,8 @@ const Navbar = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const [pendingRequests, setPendingRequests] = useState<number>(0);
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
+    const [search, setSearch] = useState<string>('');
 
     const user = useAppSelector(selectUser);
     const token = useAppSelector(selectAccessToken);
@@ -40,6 +42,20 @@ const Navbar = () => {
             .catch(err => Toast.error('Logout error: ' + err));
     };
 
+    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearch(e.target.value);
+    }
+
+    const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            const trimmed = search.trim();
+            if (!trimmed) return;
+
+            e.preventDefault();
+            console.log('Search:', trimmed);
+        }
+    };
+
     const toggleSidebar = () => {
         console.log('toggle');
         setIsSidebarOpen(prev => !prev);
@@ -61,10 +77,15 @@ const Navbar = () => {
                     )}
                 </button>
 
-                <div>
-                    <Link to='/' className='navbar-logo'>
-                        <h1>MANTEL</h1>
-                    </Link>
+                <div className="navbar-search">
+                    <Input
+                        label="Search"
+                        name="search"
+                        placeholder="Search..."
+                        value={search}
+                        onChange={handleSearchChange}
+                        onKeyDown={handleSearchKeyDown}
+                    />
                 </div>
 
                 <div className='navbar-actions'>
@@ -77,7 +98,6 @@ const Navbar = () => {
                     )}
                 </div>
             </nav>
-
             <Sidebar
                 open={isSidebarOpen}
                 pendingRequests={pendingRequests}
