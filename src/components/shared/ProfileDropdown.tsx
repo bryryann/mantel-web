@@ -31,7 +31,8 @@ const ProfileDropdown: React.FC<ProfileDropdownProps> = ({ user, onLogout }) => 
                 className="profile-button"
                 onClick={() => setIsOpen(!isOpen)}
             >
-                👤 {user.username}
+                <span className="icon">👤</span>
+                <span className="label">{user.username}</span>
             </Button>
 
             {isOpen && (

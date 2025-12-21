@@ -110,3 +110,42 @@
     color: #6b7280;
     margin: 24px 0 8px 16px;
 }
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100vw;
+        left: -100vw;
+        padding: 30px 20px;
+    }
+
+    .sidebar.open {
+        left: 0;
+    }
+
+    .sidebar-links a {
+        font-size: 1.15rem;
+        padding: 16px 20px;
+        border-radius: 10px;
+    }
+
+    .sidebar-links a:hover {
+        padding-left: 24px;
+    }
+
+    .close-btn {
+        font-size: 32px;
+        margin-bottom: 24px;
+    }
+
+    .sidebar-link-with-badge .sidebar-badge {
+        min-width: 24px;
+        height: 24px;
+        font-size: 13px;
+        padding: 0 8px;
+    }
+
+    .sidebar-section-title {
+        font-size: 0.85rem;
+        margin: 28px 0 12px 16px;
+    }
+}

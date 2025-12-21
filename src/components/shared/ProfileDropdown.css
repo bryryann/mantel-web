@@ -58,3 +58,41 @@
 .logout-button:hover {
     color: white;
 }
+
+.profile-button .icon,
+.dropdown-item .icon {
+    margin-right: 0.5rem;
+}
+
+@media (max-width: 768px) {
+
+    .dropdown-menu .btn-component,
+    .dropdown-menu .dropdown-item {
+        width: 100%;
+        height: auto;
+        min-width: unset;
+        padding: 10px 16px;
+        border-radius: 6px;
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .profile-button .label,
+    .dropdown-item .label {
+        display: none;
+    }
+
+    .profile-button,
+    .dropdown-item {
+        padding: 0.5rem;
+        justify-content: center;
+    }
+
+    .profile-button .icon,
+    .dropdown-item .icon {
+        margin-right: 0;
+        font-size: 1.2rem;
+    }
+}
+}
+}
