@@ -52,7 +52,7 @@ const Navbar = () => {
             if (!trimmed) return;
 
             e.preventDefault();
-            console.log('Search:', trimmed);
+            navigate(`/users?search=${trimmed}`);
         }
     };
 

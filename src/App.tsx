@@ -14,6 +14,7 @@ import { SettingsPage } from '@/pages/settings';
 import { selectIsAuthenticated } from '@/features/auth/authSelectors';
 
 import 'react-toastify/dist/ReactToastify.css';
+import { UserSearchPage } from './pages/query';
 
 const App = () => {
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -66,6 +67,13 @@ const App = () => {
             path='/profile/:id'
             element={
               <ProfilePage />
+            }
+          ></Route>
+
+          <Route
+            path='/users'
+            element={
+              <UserSearchPage />
             }
           ></Route>
 
