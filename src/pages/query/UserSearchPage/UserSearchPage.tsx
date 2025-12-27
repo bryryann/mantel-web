@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { User } from '@/types/auth';
 import { MainLayout } from '@/layouts';
-import './UserSearchPage.css';
-import { searchUsers } from '@/services/queryServices';
+import { UserCard } from '@/components/query';
+import { searchUsers, UserPublic } from '@/services/queryServices';
 import Toast from '@/utils/toast';
+import './UserSearchPage.css';
 
 const UserSearchPage: React.FC = () => {
     const [searchParams, setSearchParams] = useSearchParams();
-    const [searchResults, setSearchResults] = useState<User[]>([]);
+    const [hasLoaded, setHasLoaded] = useState<boolean>(false);
+    const [searchResults, setSearchResults] = useState<UserPublic[]>([]);
 
     useEffect(() => {
         const query = searchParams.get('search');
@@ -24,18 +25,37 @@ const UserSearchPage: React.FC = () => {
                 setSearchResults([]);
                 Toast.error(err.message || 'An unknown error occurred.');
             }
+
+            setHasLoaded(true);
         }
 
         fetchSearchResults();
     }, [searchParams]);
 
-    if (searchResults.length === 0) return <div className='loading-msg'>Loading...</div>
-
     console.log(searchResults);
+
+    if (!hasLoaded) return <div className='loading-msg'>Loading...</div>
 
     return (
         <MainLayout>
-            <p>{searchParams.get('search')}</p>
+            <div className='usersearchresults-content'>
+                {hasLoaded && searchResults.length > 0 ? (
+                    <ul className='usersearchresults-list'>
+                        {searchResults.map(s => (
+                            <li key={s.id} className='usersearchresults-item'>
+                                <UserCard
+                                    followers={s.data.follows.followers_count}
+                                    following={s.data.follows.following_count}
+                                    friends={s.data.friends}
+                                    {...s}
+                                />
+                            </li>
+                        ))}
+                    </ul>
+                ) : (
+                    <p className='usersearchresults-empty'>No results.</p>
+                )}
+            </div>
         </MainLayout>
     );
 };

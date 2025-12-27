@@ -1,12 +1,17 @@
 import axios from 'axios';
 import { User } from '@/types/auth';
+import { UserMetadata } from './userServices';
+
+export interface UserPublic extends User {
+    data: UserMetadata;
+};
 
 interface SearchUsersResponse {
     meta: {
         page: number;
         page_size: number;
     };
-    users: User[];
+    users: UserPublic[];
 };
 
 export const searchUsers = async (
