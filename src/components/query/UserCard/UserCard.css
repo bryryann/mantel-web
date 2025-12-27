@@ -1,0 +1,80 @@
+.usercard {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    padding: 1rem;
+    background-color: #ffffff;
+    border-radius: 14px;
+
+    cursor: pointer;
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease,
+        background-color 0.15s ease;
+
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.usercard:hover,
+.usercard:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    background-color: #fafafa;
+    outline: none;
+}
+
+.usercard-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.usercard-username {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #111;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.usercard-stats {
+    display: flex;
+    gap: 1.25rem;
+    margin-top: 0.5rem;
+}
+
+.usercard-stats div {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+
+.usercard-stats strong {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #111;
+}
+
+.usercard-stats span {
+    font-size: 0.7rem;
+    color: #666;
+}
+
+@media (max-width: 480px) {
+    .usercard {
+        padding: 0.75rem;
+        gap: 0.75rem;
+    }
+
+    .usercard-avatar img {
+        width: 48px;
+        height: 48px;
+    }
+
+    .usercard-stats {
+        gap: 0.75rem;
+    }
+}

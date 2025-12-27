@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { MainLayout } from '@/layouts';
 import { UserCard } from '@/components/query';
 import { searchUsers, UserPublic } from '@/services/queryServices';
@@ -8,6 +8,7 @@ import './UserSearchPage.css';
 
 const UserSearchPage: React.FC = () => {
     const [searchParams, setSearchParams] = useSearchParams();
+    const navigate = useNavigate();
     const [hasLoaded, setHasLoaded] = useState<boolean>(false);
     const [searchResults, setSearchResults] = useState<UserPublic[]>([]);
 
@@ -48,6 +49,8 @@ const UserSearchPage: React.FC = () => {
                                     following={s.data.follows.following_count}
                                     friends={s.data.friends}
                                     {...s}
+
+                                    onClick={(id: string) => { navigate(`/profile/${id}`) }}
                                 />
                             </li>
                         ))}
