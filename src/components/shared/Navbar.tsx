@@ -63,7 +63,6 @@ const Navbar = () => {
     };
 
     const toggleSidebar = () => {
-        console.log('toggle');
         setIsSidebarOpen(prev => !prev);
     }
 

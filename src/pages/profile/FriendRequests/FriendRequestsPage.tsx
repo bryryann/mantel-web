@@ -23,8 +23,6 @@ const FriendRequestsPage: React.FC = () => {
         fetchRequests();
     }, []);
 
-    console.log(requests);
-
     return (
         <div className='friend-requests-page'>
             <Navbar />

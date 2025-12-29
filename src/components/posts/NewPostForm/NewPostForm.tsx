@@ -22,9 +22,8 @@ const NewPostForm = () => {
     const onSubmit = (data: FormData) => {
         const submitData = async () => {
             try {
-                const response = await newPost(token!, data.content)
+                const _response = await newPost(token!, data.content)
 
-                console.log(response);
                 Toast.success('Post sent!');
             }
             catch (err) {

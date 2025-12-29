@@ -95,8 +95,6 @@ export const acceptFriendRequest = async (token: string, requestID: string): Pro
 
     const res = await axios.put<{ friendship: FriendRequest }>(query, requestBody, requestConfig);
 
-    console.log(res.data);
-
     return res.data.friendship;
 }
 
