@@ -17,7 +17,7 @@ interface SearchUsersResponse {
 export const searchUsers = async (
     query: string,
     page: number = 1,
-    pageSize: number = 20
+    pageSize: number = 15
 ): Promise<SearchUsersResponse> => {
     const requestUrl = `/api/users?q=${query}&page_size=${pageSize}&page=${page}`;
 

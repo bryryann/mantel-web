@@ -25,9 +25,15 @@ const Navbar = () => {
         if (!token) return;
 
         const fetchRequests = async () => {
-            const res = await countReceivedRequests(token);
+            try {
+                const res = await countReceivedRequests(token);
 
-            setPendingRequests(res);
+                setPendingRequests(res);
+            } catch (err: any) {
+                if (err.response?.status !== 401) {
+                    console.error(err);
+                }
+            }
         }
 
         fetchRequests();

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { MainLayout } from '@/layouts';
 import { UserCard } from '@/components/query';
@@ -7,57 +7,107 @@ import Toast from '@/utils/toast';
 import './UserSearchPage.css';
 
 const UserSearchPage: React.FC = () => {
-    const [searchParams, setSearchParams] = useSearchParams();
-    const navigate = useNavigate();
-    const [hasLoaded, setHasLoaded] = useState<boolean>(false);
+    const [page, setPage] = useState(1);
+    const [isLoading, setIsLoading] = useState(false);
+    const [hasLoaded, setHasLoaded] = useState(false);
+    const [hasMore, setHasMore] = useState(true);
     const [searchResults, setSearchResults] = useState<UserPublic[]>([]);
+
+    const [searchParams, _] = useSearchParams();
+    const observerRef = useRef<HTMLDivElement | null>(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const query = searchParams.get('search');
         if (!query) return;
 
-        const fetchSearchResults = async () => {
-            try {
-                const results = await searchUsers(query);
-
-                setSearchResults(results.users);
-            } catch (err: any) {
-                console.error(err);
-                setSearchResults([]);
-                Toast.error(err.message || 'An unknown error occurred.');
-            }
-
-            setHasLoaded(true);
-        }
-
-        fetchSearchResults();
+        setSearchResults([]);
+        setPage(1);
+        setHasMore(true);
+        setHasLoaded(false);
     }, [searchParams]);
 
-    console.log(searchResults);
+    useEffect(() => {
+        const query = searchParams.get('search');
+        if (!query || isLoading || !hasMore) return;
+
+        let cancelled = false;
+
+        const fetchUsers = async () => {
+            setIsLoading(true);
+            try {
+                const res = await searchUsers(query, page);
+
+                if (!cancelled) {
+                    setSearchResults(prev =>
+                        page === 1 ? res.users : [...prev, ...res.users]
+                    );
+
+                    if (res.users.length === 0) {
+                        setHasMore(false);
+                    }
+                }
+            } catch (err: any) {
+                if (!cancelled) {
+                    Toast.error(err.message || 'An unknown error occurred.');
+                }
+            } finally {
+                if (!cancelled) {
+                    setIsLoading(false);
+                    setHasLoaded(true);
+                }
+            }
+        };
+
+        fetchUsers();
+
+        return () => {
+            cancelled = true;
+        };
+    }, [page, searchParams]);
+
+    useEffect(() => {
+        if (!observerRef.current || !hasMore || isLoading) return;
+
+        const observer = new IntersectionObserver(entries => {
+            if (entries[0].isIntersecting) {
+                setPage(prev => prev + 1);
+            }
+        });
+
+        observer.observe(observerRef.current);
+        return () => observer.disconnect();
+    }, [hasMore, isLoading]);
 
     if (!hasLoaded) return <div className='loading-msg'>Loading...</div>
 
     return (
         <MainLayout>
-            <div className='usersearchresults-content'>
-                {hasLoaded && searchResults.length > 0 ? (
-                    <ul className='usersearchresults-list'>
+            <div className="usersearchresults-content">
+                {searchResults.length > 0 ? (
+                    <ul className="usersearchresults-list">
                         {searchResults.map(s => (
-                            <li key={s.id} className='usersearchresults-item'>
+                            <li key={s.id} className="usersearchresults-item">
                                 <UserCard
                                     followers={s.data.follows.followers_count}
                                     following={s.data.follows.following_count}
                                     friends={s.data.friends}
                                     {...s}
-
-                                    onClick={(id: string) => { navigate(`/profile/${id}`) }}
+                                    onClick={(id: string) => navigate(`/profile/${id}`)}
                                 />
                             </li>
                         ))}
                     </ul>
+                ) : hasLoaded ? (
+                    <p className="usersearchresults-empty">No results.</p>
                 ) : (
-                    <p className='usersearchresults-empty'>No results.</p>
+                    <p className="loading-msg">Loading...</p>
                 )}
+
+                {/* Scroll trigger */}
+                {hasMore && <div ref={observerRef} className="scroll-loader">
+                    {isLoading && <p>Loading more...</p>}
+                </div>}
             </div>
         </MainLayout>
     );
