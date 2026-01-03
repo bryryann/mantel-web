@@ -100,7 +100,7 @@ const ProfilePage = () => {
                     const confirmed = window.confirm('Are you sure you want to unfriend this user?');
                     if (!confirmed) return;
 
-                    const _res = await unfriend(accessToken, friendshipObject.id);
+                    await unfriend(accessToken, friendshipObject.id);
                     setFriendshipStatus('none');
 
                     break;

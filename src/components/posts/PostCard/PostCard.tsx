@@ -4,7 +4,7 @@ import PostActions from '@/components/posts/PostActions/PostActions';
 import './PostCard.css';
 
 interface PostCardProps {
-    username: string;
+    username?: string;
     userID: string;
     postID: number;
     content: string;
