@@ -94,7 +94,7 @@ const App = () => {
       )}
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <NewPostForm />
+        <NewPostForm onPost={() => setIsModalOpen(false)} />
       </Modal>
 
       <ToastContainer

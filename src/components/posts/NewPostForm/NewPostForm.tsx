@@ -8,9 +8,13 @@ import './NewPostForm.css';
 
 interface FormData {
     content: string;
-}
+};
 
-const NewPostForm = () => {
+interface NewPostFormProps {
+    onPost: () => void;
+};
+
+const NewPostForm: React.FC<NewPostFormProps> = ({ onPost }) => {
     const token = useAppSelector(selectAccessToken);
 
     const {
@@ -25,6 +29,7 @@ const NewPostForm = () => {
                 const _response = await newPost(token!, data.content)
 
                 Toast.success('Post sent!');
+                onPost();
             }
             catch (err) {
                 Toast.error(`Error sending post: ${err}`);
