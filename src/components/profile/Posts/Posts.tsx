@@ -21,7 +21,7 @@ const Posts: React.FC<PostsProps> = ({
 }) => {
     const [posts, setPosts] = useState<Post[]>([]);
     const [error, setError] = useState<string | null>();
-    const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest');
+    const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>(defaultSort);
 
     const loadPosts = useCallback(async () => {
         if (!userID) return;
