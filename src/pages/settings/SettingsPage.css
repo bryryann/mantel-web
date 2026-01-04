@@ -1,0 +1,73 @@
+.settings-page__container {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    padding: 2rem 3rem;
+    min-height: 100vh;
+    background-color: #f0f2f5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.settings-page__sidebar {
+    flex: 1;
+    max-width: 250px;
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    height: fit-content;
+}
+
+.settings-page__sidebar h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.settings-page__sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.settings-page__sidebar li {
+    margin-bottom: 1rem;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+
+.settings-page__sidebar li:hover {
+    background-color: #f0f0f0;
+}
+
+.settings-page__main {
+    flex: 3;
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.settings-page__section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 1.5rem;
+}
+
+.settings-page__section:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.settings-page__section h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}

@@ -1,0 +1,59 @@
+.profile-settings-form__container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.profile-settings-form__container form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.profile-settings-form__password {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.profile-settings-form__container input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.profile-settings-form__container input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.profile-settings-form__container label {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    display: block;
+}
+
+.profile-settings-form__container .error {
+    color: #e74c3c;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.profile-settings-form__container button {
+    align-self: flex-start;
+    padding: 0.75rem 1.25rem;
+    border: none;
+    border-radius: 8px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.profile-settings-form__container button:hover {
+    background-color: #0056b3;
+}

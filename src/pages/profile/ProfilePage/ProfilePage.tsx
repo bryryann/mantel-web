@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { UserProfile, fetchUser, isFollowing, followUser, unfollowUser } from '@/services/userServices';
 import { FriendshipStatus, getFriendship, getFriendshipStatus, sendFriendRequest, unfriend } from '@/services/friendsServices';
 import { useAppSelector } from '@/hooks/hooks';
@@ -164,9 +164,12 @@ const ProfilePage = () => {
                         )}
 
                         {isOwnProfile && (
-                            <Button className="edit-profile-btn">
+                            <Link
+                                to='/settings'
+                                className="edit-profile-btn"
+                            >
                                 Edit Profile
-                            </Button>
+                            </Link>
                         )}
                     </div>
                 )}

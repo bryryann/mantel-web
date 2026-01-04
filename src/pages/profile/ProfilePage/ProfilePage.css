@@ -25,6 +25,7 @@
 .profile-card .profile-action-buttons .edit-profile-btn {
     margin-top: 0;
     width: auto;
+    text-decoration: none;
 }
 
 .follow-feat-btn,
