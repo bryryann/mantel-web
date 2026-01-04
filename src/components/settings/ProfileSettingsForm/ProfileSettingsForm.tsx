@@ -1,7 +1,9 @@
 import { useForm } from 'react-hook-form';
-import { useAppSelector } from '@/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '@/hooks/hooks';
 import { selectAccessToken } from '@/features/auth/authSelectors';
 import { Button, Input } from '@/components/ui';
+import { updateProfile } from '@/features/auth/authThunks';
+import Toast from '@/utils/toast';
 import './ProfileSettingsForm.css';
 
 interface FormData {
@@ -11,7 +13,8 @@ interface FormData {
 };
 
 const ProfileSettingsForm = () => {
-    const _token = useAppSelector(selectAccessToken);
+    const dispatch = useAppDispatch();
+    const token = useAppSelector(selectAccessToken);
 
     const {
         register,
@@ -22,24 +25,27 @@ const ProfileSettingsForm = () => {
 
     const password = watch('password');
 
-    const onSubmit = (data: FormData) => {
+    const onSubmit = async (data: FormData) => {
         const { username, password } = data;
 
-        if (!username && !password) return;
+        if ((!username && !password) || !token) return;
 
         const payload: Partial<FormData> = {};
 
         if (username) payload.username = username;
         if (password) payload.password = password;
 
-        console.log('submitting:', payload);
-
-        // updateProfile(payload, token);
+        try {
+            await dispatch(updateProfile({ username, password })).unwrap();
+            Toast.success('Successfully updated profile settings');
+        } catch (err: any) {
+            Toast.error(err)
+        }
     };
 
     return (
         <div className='profile-settings-form__container'>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={() => handleSubmit(onSubmit)}>
                 <Input
                     label='Username'
                     {...register('username', {

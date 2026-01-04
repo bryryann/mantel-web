@@ -36,6 +36,25 @@ export const fetchUser = async (userID: string): Promise<FetchUserResponse> => {
     return res.data;
 };
 
+interface UserPatchPayload {
+    username?: string;
+    password?: string;
+};
+
+export const updateProfileRequest = async (payload: UserPatchPayload, token: string): Promise<number> => {
+    const requestURL = `/api/users`;
+    const requestBody = payload;
+    const requestConfig = {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    };
+
+    const res = await axios.patch<void>(requestURL, requestBody, requestConfig);
+
+    return res.status;
+}
+
 export const fetchFollowData = async (userID: string, type: FollowType): Promise<User[]> => {
     const requestURL = `/api/users/${userID}/${type}`;
     const res = await axios.get<Record<FollowType, User[]>>(requestURL);

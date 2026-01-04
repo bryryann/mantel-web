@@ -1,7 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { loginSuccess, logout } from './authSlice';
+import { loginSuccess, logout, updateUser } from './authSlice';
 import { loginUser, registerUser } from '@/services/authServices';
-import { User } from '@/types/auth';
+import { AuthState, User } from '@/types/auth';
+import { updateProfileRequest } from '@/services/userServices';
 
 export const login = createAsyncThunk(
     'auth/login',
@@ -52,6 +53,33 @@ export const register = createAsyncThunk(
                 error.response?.data?.message ||
                 error.message ||
                 'Registration failed'
+            );
+        }
+    }
+);
+
+export const updateProfile = createAsyncThunk<
+    void,
+    { username?: string; password?: string },
+    { state: { auth: AuthState }; rejectValue: string }
+>(
+    'auth/updateProfile',
+    async (payload, { dispatch, getState, rejectWithValue }) => {
+        try {
+            const token = getState().auth.accessToken;
+
+            if (!token) return rejectWithValue('Not authenticated');
+
+            await updateProfileRequest(payload, token)
+
+            if (payload.username) {
+                dispatch(updateUser({ username: payload.username }));
+            }
+        } catch (error: any) {
+            return rejectWithValue(
+                error.response?.data?.message ||
+                error.message ||
+                'Failed to update profile'
             );
         }
     }
