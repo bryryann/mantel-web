@@ -69,11 +69,13 @@ const UserSearchPage: React.FC = () => {
     useEffect(() => {
         if (!observerRef.current || !hasMore || isLoading) return;
 
-        const observer = new IntersectionObserver(entries => {
-            if (entries[0].isIntersecting) {
-                setPage(prev => prev + 1);
+        const observer = new IntersectionObserver(
+            (entries: IntersectionObserverEntry[]) => {
+                if (entries[0].isIntersecting) {
+                    setPage(prev => prev + 1);
+                }
             }
-        });
+        );
 
         observer.observe(observerRef.current);
         return () => observer.disconnect();

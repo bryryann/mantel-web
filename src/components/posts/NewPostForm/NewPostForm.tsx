@@ -26,7 +26,7 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ onPost }) => {
     const onSubmit = (data: FormData) => {
         const submitData = async () => {
             try {
-                const _response = await newPost(token!, data.content)
+                await newPost(token!, data.content)
 
                 Toast.success('Post sent!');
                 onPost();

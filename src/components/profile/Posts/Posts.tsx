@@ -17,7 +17,6 @@ const Posts: React.FC<PostsProps> = ({
     username,
     isOwnProfile,
     defaultSort = 'newest',
-    pageSize = 10
 }) => {
     const [posts, setPosts] = useState<Post[]>([]);
     const [error, setError] = useState<string | null>();
