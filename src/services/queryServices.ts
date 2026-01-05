@@ -2,6 +2,8 @@ import axios from 'axios';
 import { User } from '@/types/auth';
 import { UserMetadata } from './userServices';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export interface UserPublic extends User {
     data: UserMetadata;
 };
@@ -19,7 +21,7 @@ export const searchUsers = async (
     page: number = 1,
     pageSize: number = 15
 ): Promise<SearchUsersResponse> => {
-    const requestUrl = `/api/users?q=${query}&page_size=${pageSize}&page=${page}`;
+    const requestUrl = `${API_URL}/v1/users?q=${query}&page_size=${pageSize}&page=${page}`;
 
     const res = await axios.get<SearchUsersResponse>(requestUrl);
 

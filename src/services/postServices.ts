@@ -1,6 +1,8 @@
 import { Post } from '@/types/posts';
 import axios from 'axios';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 interface Meta {
     page: number;
     page_size: number;
@@ -22,7 +24,7 @@ export const fetchPostsFromUser = async (
     pageSize: number = 10,
     page: number = 1,
 ): Promise<PostsResponse> => {
-    const requestUrl = `/api/users/${userID}/posts?page=${page}&page_size=${pageSize}&sort=${sort}`;
+    const requestUrl = `${API_URL}/v1/users/${userID}/posts?page=${page}&page_size=${pageSize}&sort=${sort}`;
 
     const res = await axios.get<PostsResponse>(requestUrl);
 
@@ -39,7 +41,7 @@ export const newPost = async (token: string, content: string): Promise<NewPostRe
     };
 
     const res = await axios.post<NewPostResponse>(
-        '/api/posts',
+        `${API_URL}/v1/posts`,
         requestBody,
         requestConfig
     );

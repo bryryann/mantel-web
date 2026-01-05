@@ -2,6 +2,8 @@ import axios from 'axios';
 import { PaginationMetadata } from '@/types/json';
 import { Post } from '@/types/posts';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export interface FeedResponse {
     feed: Post[];
     meta: PaginationMetadata;
@@ -12,7 +14,7 @@ export const getFeed = async (
     page: number = 1,
     pageSize: number = 20,
 ): Promise<FeedResponse> => {
-    const query = `/api/feed?page=${page}&page_size=${pageSize}`;
+    const query = `${API_URL}/v1/feed?page=${page}&page_size=${pageSize}`;
     const requestConfig = {
         headers: {
             'Authorization': `Bearer ${token}`,
