@@ -14,7 +14,7 @@ export const getFeed = async (
     page: number = 1,
     pageSize: number = 20,
 ): Promise<FeedResponse> => {
-    const query = `${API_URL}/v1/feed?page=${page}&page_size=${pageSize}`;
+    const query = `${API_URL}/feed?page=${page}&page_size=${pageSize}`;
     const requestConfig = {
         headers: {
             'Authorization': `Bearer ${token}`,

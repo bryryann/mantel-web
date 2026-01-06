@@ -21,7 +21,7 @@ export const searchUsers = async (
     page: number = 1,
     pageSize: number = 15
 ): Promise<SearchUsersResponse> => {
-    const requestUrl = `${API_URL}/v1/users?q=${query}&page_size=${pageSize}&page=${page}`;
+    const requestUrl = `${API_URL}/users?q=${query}&page_size=${pageSize}&page=${page}`;
 
     const res = await axios.get<SearchUsersResponse>(requestUrl);
 

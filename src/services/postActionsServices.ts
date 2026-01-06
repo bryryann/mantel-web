@@ -15,13 +15,13 @@ interface LikePostResponse {
 }
 
 export const countLikes = async (postID: number): Promise<number> => {
-    const res = await axios.get<{ likes_count: number }>(`${API_URL}/v1/posts/${postID}/likes/count`);
+    const res = await axios.get<{ likes_count: number }>(`${API_URL}/posts/${postID}/likes/count`);
 
     return res.data.likes_count;
 }
 
 export const likePost = async (token: string, postID: number): Promise<LikePostResponse> => {
-    const query = `${API_URL}/v1/posts/${postID}/likes`;
+    const query = `${API_URL}/posts/${postID}/likes`;
     const requestConfig = {
         headers: {
             'Authorization': `Bearer ${token}`
@@ -34,7 +34,7 @@ export const likePost = async (token: string, postID: number): Promise<LikePostR
 }
 
 export const dislikePost = async (token: string, postID: number): Promise<void> => {
-    const query = `${API_URL}/v1/posts/${postID}/likes`;
+    const query = `${API_URL}/posts/${postID}/likes`;
     const requestConfig = {
         headers: {
             'Authorization': `Bearer ${token}`,
@@ -45,7 +45,7 @@ export const dislikePost = async (token: string, postID: number): Promise<void> 
 }
 
 export const hasUserLikedPost = async (userID: string, postID: number): Promise<boolean> => {
-    const query = `${API_URL}/v1/users/${userID}/liked/${postID}`;
+    const query = `${API_URL}/users/${userID}/liked/${postID}`;
     const res = await axios.get<{ has_liked: boolean }>(query);
 
     return res.data.has_liked;

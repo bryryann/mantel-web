@@ -21,7 +21,7 @@ interface SentRequestResponse {
 };
 
 export const fetchFriendRequests = async (token: string, queryParam: FetchQuery): Promise<FriendRequest[]> => {
-    const query = `${API_URL}/v1/friend-requests?by=${queryParam}`;
+    const query = `${API_URL}/friend-requests?by=${queryParam}`;
     const requestConfig = {
         headers: {
             'Authorization': `Bearer ${token}`,
@@ -34,7 +34,7 @@ export const fetchFriendRequests = async (token: string, queryParam: FetchQuery)
 }
 
 export const countReceivedRequests = async (token: string): Promise<number> => {
-    const query = `${API_URL}/v1/friend-requests?by=received`;
+    const query = `${API_URL}/friend-requests?by=received`;
     const requestConfig = {
         headers: {
             'Authorization': `Bearer ${token}`,
@@ -47,7 +47,7 @@ export const countReceivedRequests = async (token: string): Promise<number> => {
 }
 
 export const unfriend = async (token: string, requestID: string): Promise<number> => {
-    const query = `${API_URL}/v1/friend-requests/${requestID}/unfriend`;
+    const query = `${API_URL}/friend-requests/${requestID}/unfriend`;
     const requestConfig = {
         headers: {
             'Authorization': `Bearer ${token}`,
@@ -60,7 +60,7 @@ export const unfriend = async (token: string, requestID: string): Promise<number
 }
 
 export const rejectFriendRequest = async (token: string, requestID: string): Promise<number> => {
-    const query = `${API_URL}/v1/friend-requests/${requestID}/reject`;
+    const query = `${API_URL}/friend-requests/${requestID}/reject`;
     const requestConfig = {
         headers: {
             'Authorization': `Bearer ${token}`,
@@ -73,7 +73,7 @@ export const rejectFriendRequest = async (token: string, requestID: string): Pro
 }
 
 export const cancelFriendRequest = async (token: string, requestID: string): Promise<number> => {
-    const query = `${API_URL}/v1/friend-requests/${requestID}/cancel`;
+    const query = `${API_URL}/friend-requests/${requestID}/cancel`;
     const requestConfig = {
         headers: {
             'Authorization': `Bearer ${token}`,
@@ -86,7 +86,7 @@ export const cancelFriendRequest = async (token: string, requestID: string): Pro
 }
 
 export const acceptFriendRequest = async (token: string, requestID: string): Promise<FriendRequest> => {
-    const query = `${API_URL}/v1/friend-requests/${requestID}`;
+    const query = `${API_URL}/friend-requests/${requestID}`;
     const requestBody = { status: 'accepted' };
     const requestConfig = {
         headers: {
@@ -101,7 +101,7 @@ export const acceptFriendRequest = async (token: string, requestID: string): Pro
 }
 
 export const getFriendshipStatus = async (userID: string, friendID: string): Promise<FriendshipStatus> => {
-    const query = `${API_URL}/v1/users/${userID}/friends/${friendID}/status`;
+    const query = `${API_URL}/users/${userID}/friends/${friendID}/status`;
 
     const res = await axios.get<{ friendship_status: FriendshipStatus }>(query);
 
@@ -109,7 +109,7 @@ export const getFriendshipStatus = async (userID: string, friendID: string): Pro
 }
 
 export const getFriendship = async (userID: string, friendID: string): Promise<FriendRequest> => {
-    const query = `${API_URL}/v1/users/${userID}/friends/${friendID}`;
+    const query = `${API_URL}/users/${userID}/friends/${friendID}`;
 
     const res = await axios.get<{ friendship: FriendRequest }>(query);
 
@@ -117,7 +117,7 @@ export const getFriendship = async (userID: string, friendID: string): Promise<F
 }
 
 export const listFriends = async (userID: string): Promise<User[]> => {
-    const requestURL = `${API_URL}/v1/users/${userID}/friends`;
+    const requestURL = `${API_URL}/users/${userID}/friends`;
     const res = await axios.get<{ friends: User[] }>(requestURL);
 
     return res.data.friends;
@@ -134,7 +134,7 @@ export const sendFriendRequest = async (token: string, receiverID: string): Prom
         },
     };
 
-    const res = await axios.post<SentRequestResponse>(`${API_URL}/v1/friend-requests`, requestBody, requestConfig);
+    const res = await axios.post<SentRequestResponse>(`${API_URL}/friend-requests`, requestBody, requestConfig);
 
     return res.data;
 }

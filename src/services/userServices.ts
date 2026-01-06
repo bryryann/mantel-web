@@ -33,7 +33,7 @@ interface IsFollowingResponse {
 type FollowType = 'followees' | 'followers';
 
 export const fetchUser = async (userID: string): Promise<FetchUserResponse> => {
-    const res = await axios.get<FetchUserResponse>(`${API_URL}/v1/users/${userID}`);
+    const res = await axios.get<FetchUserResponse>(`${API_URL}/users/${userID}`);
 
     return res.data;
 };
@@ -44,7 +44,7 @@ interface UserPatchPayload {
 };
 
 export const updateProfileRequest = async (payload: UserPatchPayload, token: string): Promise<number> => {
-    const requestURL = `${API_URL}/v1/users`;
+    const requestURL = `${API_URL}/users`;
     const requestBody = payload;
     const requestConfig = {
         headers: {
@@ -58,14 +58,14 @@ export const updateProfileRequest = async (payload: UserPatchPayload, token: str
 }
 
 export const fetchFollowData = async (userID: string, type: FollowType): Promise<User[]> => {
-    const requestURL = `${API_URL}/v1/users/${userID}/${type}`;
+    const requestURL = `${API_URL}/users/${userID}/${type}`;
     const res = await axios.get<Record<FollowType, User[]>>(requestURL);
 
     return res.data[type];
 };
 
 export const isFollowing = async (userID: string, followeeID: string): Promise<IsFollowingResponse> => {
-    const requestURL = `${API_URL}/v1/users/${userID}/follows/${followeeID}`;
+    const requestURL = `${API_URL}/users/${userID}/follows/${followeeID}`;
 
     const res = await axios.get<IsFollowingResponse>(requestURL);
 
@@ -84,7 +84,7 @@ export const followUser = async (token: string, userID: string, followeeID: stri
     };
 
     const res = await axios.post<FollowResponse>(
-        `${API_URL}/v1/users/${userID}/follow`,
+        `${API_URL}/users/${userID}/follow`,
         requestBody,
         requestConfig
     );
@@ -98,5 +98,5 @@ export const unfollowUser = async (token: string, userID: string, followeeID: st
         },
     };
 
-    await axios.post(`${API_URL}/v1/users/${userID}/unfollow/${followeeID}`, null, requestConfig);
+    await axios.post(`${API_URL}/users/${userID}/unfollow/${followeeID}`, null, requestConfig);
 }

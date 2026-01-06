@@ -24,7 +24,7 @@ export const fetchPostsFromUser = async (
     pageSize: number = 10,
     page: number = 1,
 ): Promise<PostsResponse> => {
-    const requestUrl = `${API_URL}/v1/users/${userID}/posts?page=${page}&page_size=${pageSize}&sort=${sort}`;
+    const requestUrl = `${API_URL}/users/${userID}/posts?page=${page}&page_size=${pageSize}&sort=${sort}`;
 
     const res = await axios.get<PostsResponse>(requestUrl);
 
@@ -41,7 +41,7 @@ export const newPost = async (token: string, content: string): Promise<NewPostRe
     };
 
     const res = await axios.post<NewPostResponse>(
-        `${API_URL}/v1/posts`,
+        `${API_URL}/posts`,
         requestBody,
         requestConfig
     );

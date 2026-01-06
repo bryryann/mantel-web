@@ -6,16 +6,17 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd());
 
   console.log('VITE_API_URL:', env.VITE_API_URL);
+  console.log(mode);
 
   return {
     plugins: [react()],
-    server: {
+    server: mode === 'development' ? {
       proxy: {
         '/api': {
-          target: env.VITE_API_URL,
+          target: 'http://localhost:4001',
           changeOrigin: true,
           secure: false,
-          rewrite: (path) => path.replace(/^\/api/, '/v1'),
+          rewrite: (path) => path.replace(/^\/api/, ''),
           configure: (proxy, _options) => {
             proxy.on('error', (err, _req, _res) => {
               console.log('proxy error', err);
@@ -29,7 +30,7 @@ export default defineConfig(({ mode }) => {
           },
         },
       },
-    },
+    } : undefined,
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),
