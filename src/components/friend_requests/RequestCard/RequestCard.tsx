@@ -5,6 +5,7 @@ import { selectAccessToken } from '@/features/auth/authSelectors';
 import { acceptFriendRequest, rejectFriendRequest } from '@/services/friendsServices';
 import Toast from '@/utils/toast';
 import './RequestCard.css';
+import { Loading } from '@/components/shared';
 
 interface RequestCardProps {
     requestID: string;
@@ -58,7 +59,7 @@ const RequestCard: React.FC<RequestCardProps> = ({ requestID, targetID }) => {
     if (!target) {
         return (
             <div className="request-card request-card--loading">
-                <p>Loading...</p>
+                <Loading />
             </div>
         );
     }

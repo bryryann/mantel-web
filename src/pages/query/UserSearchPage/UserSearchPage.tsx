@@ -5,6 +5,7 @@ import { UserCard } from '@/components/query';
 import { searchUsers, UserPublic } from '@/services/queryServices';
 import Toast from '@/utils/toast';
 import './UserSearchPage.css';
+import { Loading } from '@/components/shared';
 
 const UserSearchPage: React.FC = () => {
     const [page, setPage] = useState(1);
@@ -81,7 +82,7 @@ const UserSearchPage: React.FC = () => {
         return () => observer.disconnect();
     }, [hasMore, isLoading]);
 
-    if (!hasLoaded) return <div className='loading-msg'>Loading...</div>
+    if (!hasLoaded) return <Loading />
 
     return (
         <MainLayout>
@@ -103,7 +104,7 @@ const UserSearchPage: React.FC = () => {
                 ) : hasLoaded ? (
                     <p className="usersearchresults-empty">No results.</p>
                 ) : (
-                    <p className="loading-msg">Loading...</p>
+                    <Loading />
                 )}
 
                 {/* Scroll trigger */}

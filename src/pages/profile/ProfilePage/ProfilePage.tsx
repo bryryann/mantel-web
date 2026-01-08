@@ -6,7 +6,7 @@ import { useAppSelector } from '@/hooks/hooks';
 import { selectAccessToken, selectUser } from '@/features/auth/authSelectors';
 import { ProfileLayout } from '@/layouts';
 import { Posts, UserFollowList } from '@/components/profile';
-import { Modal } from '@/components/shared';
+import { Loading, Modal } from '@/components/shared';
 import { Button } from '@/components/ui';
 import { FriendRequest } from '@/types';
 import Toast from '@/utils/toast';
@@ -116,7 +116,7 @@ const ProfilePage = () => {
     };
 
     if (error) return <div className="error-msg">Error: {error}</div>;
-    if (!user) return <div className="loading-msg">Loading...</div>;
+    if (!user) return <Loading />
 
     return (
         <ProfileLayout>

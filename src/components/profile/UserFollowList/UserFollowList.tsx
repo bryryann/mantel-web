@@ -4,6 +4,7 @@ import { fetchFollowData } from '@/services/userServices';
 import { User } from '@/types/auth';
 import './UserFollowList.css';
 import { listFriends } from '@/services/friendsServices';
+import { Loading } from '@/components/shared';
 
 type UserFollowListProps = {
     content: 'followees' | 'followers' | 'friends';
@@ -38,7 +39,7 @@ const UserFollowList: React.FC<UserFollowListProps> = ({ content, userId }) => {
         window.location.reload();
     }
 
-    if (userList === null) return <p>Loading...</p>;
+    if (userList === null) return <Loading />
 
     return (
         <div className="user-follows-list">

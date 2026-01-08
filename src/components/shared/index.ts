@@ -1,11 +1,13 @@
-import Navbar from './Navbar';
-import Sidebar from './Sidebar';
-import ProfileDropdown from './ProfileDropdown';
+import Loading from './Loading';
 import Modal from './Modal';
+import Navbar from './Navbar';
+import ProfileDropdown from './ProfileDropdown';
+import Sidebar from './Sidebar';
 
 export {
-    Navbar,
-    Sidebar,
-    ProfileDropdown,
+    Loading,
     Modal,
+    Navbar,
+    ProfileDropdown,
+    Sidebar,
 };
