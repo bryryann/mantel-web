@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { User } from '@/types/auth';
-import { UserMetadata } from './userServices';
+import { UserProfileData } from './userServices';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 export interface UserPublic extends User {
-    data: UserMetadata;
+    profile: UserProfileData;
 };
 
 interface SearchUsersResponse {

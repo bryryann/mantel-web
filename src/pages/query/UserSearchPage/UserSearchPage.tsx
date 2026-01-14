@@ -92,9 +92,9 @@ const UserSearchPage: React.FC = () => {
                         {searchResults.map(s => (
                             <li key={s.id} className="usersearchresults-item">
                                 <UserCard
-                                    followers={s.data.follows.followers_count}
-                                    following={s.data.follows.following_count}
-                                    friends={s.data.friends}
+                                    followers={s.profile.follows.followers_count}
+                                    following={s.profile.follows.following_count}
+                                    friends={s.profile.friends}
                                     {...s}
                                     onClick={(id: string) => navigate(`/profile/${id}`)}
                                 />

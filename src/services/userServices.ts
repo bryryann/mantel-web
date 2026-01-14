@@ -3,18 +3,19 @@ import { User } from '@/types/auth';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-export interface UserMetadata {
+export interface UserProfileData {
     follows: {
         followers_count: number;
         following_count: number;
-    },
-    friends: number,
+    };
+    friends: number;
+    bio: string;
 };
 
 export interface UserProfile {
     id: string;
     username: string;
-    data: UserMetadata
+    profile: UserProfileData;
 }
 
 interface FetchUserResponse {

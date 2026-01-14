@@ -178,13 +178,11 @@ const ProfilePage = () => {
                 <p>
                     <span className="mantel-id">Mantel ID:</span> {id}
                 </p>
-                <p>
-                    {user.data.follows.followers_count} <span className="mantel-id">Followers</span>
-                    <br />
-                    {user.data.follows.following_count} <span className="mantel-id">Following</span>
-                    <br />
-                    {user.data.friends} <span className="mantel-id">Friends</span>
-                </p>
+                {user.profile.bio && (
+                    <p className="profile-bio">
+                        {user.profile.bio}
+                    </p>
+                )}
 
                 {/* User Stats */}
                 <div className="user-stats">
@@ -195,7 +193,7 @@ const ProfilePage = () => {
                             setIsModalOpen(true);
                         }}
                     >
-                        <span className="count">{user.data.friends}</span>
+                        <span className="count">{user.profile.friends}</span>
                         <span className="label">Friends</span>
                     </button>
 
@@ -206,7 +204,7 @@ const ProfilePage = () => {
                             setIsModalOpen(true);
                         }}
                     >
-                        <span className="count">{user.data.follows.followers_count}</span>
+                        <span className="count">{user.profile.follows.followers_count}</span>
                         <span className="label">Followers</span>
                     </button>
 
@@ -217,7 +215,7 @@ const ProfilePage = () => {
                             setIsModalOpen(true);
                         }}
                     >
-                        <span className="count">{user.data.follows.following_count}</span>
+                        <span className="count">{user.profile.follows.following_count}</span>
                         <span className="label">Following</span>
                     </button>
                 </div>
