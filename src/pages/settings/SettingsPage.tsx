@@ -1,5 +1,5 @@
 import { MainLayout } from '@/layouts';
-import { ProfileSettingsForm } from '@/components/settings';
+import { ProfileSettingsForm, UpdateBioForm } from '@/components/settings';
 import './SettingsPage.css';
 
 const SettingsPage = () => {
@@ -22,12 +22,12 @@ const SettingsPage = () => {
                 <div className="settings-page__main">
                     <div className="settings-page__section">
                         <h3>Profile Settings</h3>
-                        <ProfileSettingsForm />
+                        <UpdateBioForm />
                     </div>
 
                     <div className="settings-page__section">
                         <h3>Account Settings</h3>
-                        <p>coming soon...</p>
+                        <ProfileSettingsForm />
                     </div>
 
                     <div className="settings-page__section">
