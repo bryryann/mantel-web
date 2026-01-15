@@ -36,7 +36,6 @@ const UpdateBioForm = () => {
         <div className='profile-settings-form__container'>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <TextArea
-                    cols={180}
                     className='profile-settings-textarea__bio'
                     label='Bio'
                     {...register('bio', {

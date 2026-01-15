@@ -1,0 +1,8 @@
+.profile-settings-textarea__bio {
+    width: 100%;
+    min-height: 120px;
+    resize: vertical;
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+}

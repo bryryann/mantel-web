@@ -74,3 +74,68 @@
     font-weight: 600;
     margin-bottom: 0.75rem;
 }
+
+@media (max-width: 1024px) {
+    .settings-page__container {
+        padding: 1.5rem;
+        gap: 1.5rem;
+    }
+
+    .settings-page__sidebar {
+        max-width: 200px;
+        padding: 1.5rem;
+    }
+
+    .settings-page__main {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .settings-page__container {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    .settings-page__sidebar {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .settings-page__sidebar ul {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    .settings-page__sidebar li {
+        margin-bottom: 0;
+        flex: 1 1 auto;
+        text-align: center;
+        background-color: #f7f7f7;
+    }
+
+    .settings-page__main {
+        width: 100%;
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .settings-page__container {
+        padding: 0.75rem;
+    }
+
+    .settings-page__sidebar h2 {
+        font-size: 1rem;
+    }
+
+    .settings-page__section h3 {
+        font-size: 1rem;
+    }
+
+    .settings-page__section {
+        gap: 1rem;
+        padding-bottom: 1rem;
+    }
+}

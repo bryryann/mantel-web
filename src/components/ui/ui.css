@@ -153,13 +153,4 @@
         align-items: center;
         justify-content: center;
     }
-
-    .btn-component .label {
-        display: none;
-    }
-
-    .btn-component .icon {
-        margin: 0;
-        font-size: 1.2rem;
-    }
 }

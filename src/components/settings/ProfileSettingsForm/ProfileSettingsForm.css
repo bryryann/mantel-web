@@ -57,3 +57,45 @@
 .profile-settings-form__container button:hover {
     background-color: #0056b3;
 }
+
+@media (max-width: 768px) {
+    .profile-settings-form__container {
+        gap: 1.5rem;
+    }
+
+    .profile-settings-form__container form {
+        gap: 1.25rem;
+    }
+
+    .profile-settings-form__password {
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+
+    .profile-settings-form__container button {
+        width: 100%;
+        align-self: stretch;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-settings-form__container {
+        gap: 1.25rem;
+    }
+
+    .profile-settings-form__container label {
+        font-size: 0.9rem;
+    }
+
+    .profile-settings-form__container input,
+    .profile-settings-textarea__bio {
+        font-size: 0.95rem;
+        padding: 0.65rem 0.9rem;
+    }
+
+    .profile-settings-form__container button {
+        padding: 0.75rem;
+        font-size: 0.95rem;
+    }
+}
