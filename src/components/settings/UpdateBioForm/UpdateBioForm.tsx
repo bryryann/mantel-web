@@ -2,6 +2,8 @@ import { useForm } from 'react-hook-form';
 import { selectAccessToken } from '@/features/auth/authSelectors';
 import { Button, TextArea } from '@/components/ui';
 import { useAppSelector } from '@/hooks/hooks';
+import { updateBio } from '@/services/profileServices';
+import Toast from '@/utils/toast';
 import './UpdateBioForm.css';
 
 interface FormData {
@@ -22,7 +24,12 @@ const UpdateBioForm = () => {
 
         if (!bio || !token) return;
 
-        console.log('new bio:', bio);
+        try {
+            await updateBio(token, bio);
+            Toast.success('Successfully updated profile bio');
+        } catch (err: any) {
+            Toast.error(err);
+        }
     };
 
     return (
