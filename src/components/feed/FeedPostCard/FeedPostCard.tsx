@@ -3,6 +3,7 @@ import { fetchUser, UserProfile } from '@/services/userServices';
 import Toast from '@/utils/toast';
 import PostActions from '@/components/posts/PostActions/PostActions';
 import './FeedPostCard.css';
+import { Link } from 'react-router-dom';
 
 interface FeedPostCardProps {
     userID: string;
@@ -40,9 +41,9 @@ const FeedPostCard: React.FC<FeedPostCardProps> = ({
         <div className='feed-post-card'>
             <div className='feed-post-card__header'>
                 <div className='feed-post-card__user-info'>
-                    <span className='feed-post-card__username'>
-                        {author.username}
-                    </span>
+                    <Link to={`/profile/${userID}`} className='post-username'>
+                        @{author.username}
+                    </Link>
                     <span className='feed-post-card__date'>
                         {new Date(date).toLocaleString()}
                     </span>
