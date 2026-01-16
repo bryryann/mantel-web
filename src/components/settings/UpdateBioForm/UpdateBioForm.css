@@ -6,3 +6,10 @@
     padding: 0.75rem 1rem;
     border-radius: 8px;
 }
+
+@media (max-width: 768px) {
+    .profile-settings-textarea__bio {
+        min-height: 40vh;
+        font-size: 1rem;
+    }
+}

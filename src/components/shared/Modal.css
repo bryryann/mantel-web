@@ -75,3 +75,39 @@
         opacity: 1;
     }
 }
+
+@media (max-width: 768px) {
+    .modal-backdrop {
+        align-items: stretch;
+        justify-content: stretch;
+    }
+
+    .modal {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        max-width: none;
+        max-height: none;
+        border-radius: 0;
+        padding: 1.5rem 1.25rem;
+        animation: mobileSlideUp 0.3s ease;
+    }
+
+    .close-btn {
+        top: 16px;
+        right: 16px;
+        font-size: 1.75rem;
+    }
+
+
+    @keyframes mobileSlideUp {
+        from {
+            transform: translateY(100%);
+        }
+
+        to {
+            transform: translateY(0);
+        }
+    }
+}

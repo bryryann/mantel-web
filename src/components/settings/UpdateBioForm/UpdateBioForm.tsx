@@ -37,6 +37,7 @@ const UpdateBioForm = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <TextArea
                     className='profile-settings-textarea__bio'
+                    cols={80}
                     label='Bio'
                     {...register('bio', {
                         maxLength: {

@@ -10,10 +10,18 @@
     gap: 1.5rem;
 }
 
+.profile-settings-form__container form>* {
+    width: 100%;
+}
+
 .profile-settings-form__password {
     display: flex;
     flex-direction: row;
     gap: 1rem;
+}
+
+.profile-settings-form__password>* {
+    flex: 1;
 }
 
 .profile-settings-form__container input {
@@ -28,6 +36,12 @@
 .profile-settings-form__container input:focus {
     border-color: #007bff;
     outline: none;
+}
+
+.profile-settings-form__container input,
+.profile-settings-form__container textarea {
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .profile-settings-form__container label {

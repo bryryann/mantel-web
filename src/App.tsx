@@ -12,9 +12,9 @@ import { NotFound } from '@/pages/errors';
 import { FriendRequestsPage, ProfilePage } from '@/pages/profile';
 import { SettingsPage } from '@/pages/settings';
 import { selectIsAuthenticated } from '@/features/auth/authSelectors';
+import { UserSearchPage } from './pages/query';
 
 import 'react-toastify/dist/ReactToastify.css';
-import { UserSearchPage } from './pages/query';
 
 const App = () => {
   const isAuthenticated = useSelector(selectIsAuthenticated);

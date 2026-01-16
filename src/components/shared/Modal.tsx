@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import './Modal.css';
 
 interface ModalProps {
@@ -8,6 +9,13 @@ interface ModalProps {
 
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
     if (!isOpen) return null;
+
+    useEffect(() => {
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [isOpen]);
 
     return (
         <div
